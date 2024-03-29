@@ -55,7 +55,7 @@ def repoChoose():
 
 repoName, repo = repoChoose()
 
-downloadConfirmation = yon(input("\nSo, gotta download ", repoName, ". Do you want to download?\n"
+downloadConfirmation = yon(input(f"\nSo, gotta download {repoName}. Do you want to download?\n"
                                  "Yes or No: "))
 
 if not downloadConfirmation: print("Okay, aborting the setup.") ; exit()
