@@ -49,9 +49,9 @@ def repoChoose():
     repoName = templist[int(repoChoose) - 1]
     del templist
 
-    print("\nCool, so you choose ", repoChoose)
+    print("\nCool, so you choose ", repoName)
 
-    return repoName, repoList[repoChoose]
+    return repoName, repoList[repoName]
 
 repoName, repo = repoChoose()
 
