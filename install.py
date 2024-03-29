@@ -41,11 +41,11 @@ def repoChoose():
     while True:
         repoChoose = input("\nSo, which one do you choose to install? Say in numbers: ")
         if not repoChoose.isdigit(): print("Please, type a number.")
-        if 0 < int(repoChoose) > n: print("Please put a valid number.")
+        if 1 > int(repoChoose) > n: print("Please put a valid number.")
         break
 
     templist = [i for i in repoList]
-    repoChoose = repoList[repoChoose - 1]
+    repoChoose = repoList[int(repoChoose) - 1]
 
     print("Cool, so you choose ", repoChoose)
 
