@@ -36,7 +36,7 @@ if not archInstalled:
 def repoChoose():
     n=1; print("\nCool. Now, tell me which one do you choose?")
     for i in repoList:
-        print(f"\n{n}. {i}({repoChoose[i]})"); n+=1
+        print(f"\n{n}. {i}({repoList[i]})"); n+=1
         
     while True:
         repoChoose = input("\nSo, which one do you choose to install? Say in numbers: ")
