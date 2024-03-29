@@ -49,4 +49,6 @@ def repoChoose():
 
     print("Cool, so you choose ", repoChoose)
 
+repoChoose()
+
 #-----------------------------Script End-----------------------------#
