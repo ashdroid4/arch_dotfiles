@@ -45,7 +45,7 @@ def repoChoose():
         break
 
     templist = [i for i in repoList]
-    repoChoose = repoList[int(repoChoose) - 1]
+    repoChoose = repoList[templist[int(repoChoose) - 1]]]
 
     print("Cool, so you choose ", repoChoose)
 
