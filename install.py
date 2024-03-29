@@ -5,6 +5,7 @@ You can use it too. I have added a few dotfiles, you can choose any."""
 
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
+from subprocess import run
 #-----------------------------------------------------------------------------#
 
 
@@ -32,7 +33,7 @@ if not archInstalled:
           "Come back after setting up Arch.")
     exit()
 
-# This function will help choose which repo to go for.
+# This function will help to find the name and link for the repo the user chooses
 def repoChoose():
     n=1; print("\nCool. Now, tell me which one do you choose?")
     for i in repoList:
@@ -45,10 +46,23 @@ def repoChoose():
         break
 
     templist = [i for i in repoList]
-    repoChoose = repoList[templist[int(repoChoose) - 1]]
+    repoName = templist[int(repoChoose) - 1]
+    del templist
 
-    print("Cool, so you choose ", repoChoose)
+    print("\nCool, so you choose ", repoChoose)
 
-repoChoose()
+    return repoName, repoList[repoChoose]
 
+repoName, repo = repoChoose()
+
+downloadConfirmation = yon(input("\nSo, gotta download ", repoName, ". Do you want to download?\n"
+                                 "Yes or No: "))
+
+if not downloadConfirmation: print("Okay, aborting the setup.") ; exit()
+
+print("\nStarting download...")
+
+script = f"""
+git clone {repo} $HOME/Downloads/{repo}
+cd $HOME/Downloads/{repo}
 #-----------------------------Script End-----------------------------#
