@@ -63,8 +63,8 @@ if not downloadConfirmation: print("Okay, aborting the setup.") ; exit()
 print("\nStarting download...")
 
 script = f"""
-git clone {repo} $HOME/Downloads/{repo}
-cd $HOME/Downloads/{repo}"""
+git clone {repo} $HOME/Downloads/{repoName}
+cd $HOME/Downloads/{repoName}"""
 
 run(script, shell=True)
 
