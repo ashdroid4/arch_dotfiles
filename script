@@ -65,7 +65,8 @@ print("\nStarting download...")
 
 script = f"""
 git clone {repo} $HOME/Downloads/{repoName}
-cd $HOME/Downloads/{repoName}"""
+cp {repoName} $HOME/Downloads/{repoName}/
+python3 {repoName}"""
 
 run(script, shell=True)
 
