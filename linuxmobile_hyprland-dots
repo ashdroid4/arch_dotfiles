@@ -3,13 +3,15 @@ This script will help install https://github.com/linuxmobile/hyprland-dots
 on your Arch Linux."""
 
 #---------------------------------IMPORTS-------------------------------------#
+import typing
 from sys import exit
 from os import system
 from subprocess import run
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
-pacman_dependencies = ("hyprland wayland dunst nwg-look wf-recorder wlsunset "
+pacman_dependencies = (
+"hyprland wayland dunst nwg-look wf-recorder wlsunset "
 "colord ffmpegthumbnailer gnome-keyring gtk-engine-murrine imagemagick kvantum pamixer playerctl " 
 "polkit-kde-agent qt5-quickcontrols qt5-quickcontrols2 qt5-wayland qt6-wayland ttf-font-awesome tumbler ttf-jetbrains-mono "
 "xdg-desktop-portal-hyprland xdotool cliphist qt5-imageformats qt5ct "
@@ -17,25 +19,28 @@ pacman_dependencies = ("hyprland wayland dunst nwg-look wf-recorder wlsunset "
 "cava rofi-lbonn-wayland ocs-url hyprpicker wlogout grimblast swww ttf-icomoon-feather "
 "brave-bin file-roller noto-fonts noto-fonts-cjk noto-fonts-emoji thunar thunar-archive-plugin "
 "catppuccin-gtk-theme-macchiato catppuccin-gtk-theme-mocha papirus-icon-theme sddm swaylock-effects kvantum "
-"")
+"pipewire pipewire-alsa pipewire-audio pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire pavucontrol"
+)
 
-"""
-obs-studio-rc ffmpeg-obs cef-minimal-obs-rc-bin pipewire pipewire-alsa pipewire-audio pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire pavucontrol
-"""
-
-paru_deps = (" xwaylandvideobridge-cursor-mode-2 kvantum-theme-catppuccin" 
-"")
+green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"
 #--------------------------------------------------------------------------#
 
 #-----------------------------Script Start---------------------------#
 
-print("This script will help you download and setup your Hyprland Window Manager.\n"
-      "The script will continue in the following steps:\n")
-print("1. It will install all the dependencies.\n"
-      "2. It will write the needed config for Hyprland.")
+def echo(arg: str):
+"""This function will echo the print the messages in the terminal"""
+system(f'echo -e "{arg}"')
 
+echo(f"""
+This script will help you download and setup your Hyprland Window Manager.
+The script will continue in the following steps:
+{green}
+1. It will add a repo Chaotic-AUR if needed.
+2. It will install all the dependencies.
+3. It will write the needed config for Hyprland.""")
+            
 # This function will determine the input as True or False or YesForAll.
-def yon(arg, simple=True):
+def yon(arg:str, simple=True) -> boolean:
     response = input(arg)
 
     if simple: return True if "y" in response else False
@@ -46,24 +51,19 @@ def yon(arg, simple=True):
 
     if "all" in response: return "all"
     
-
-# Let's install the paru first
-paruScript = """
-pacman -S --needed cargo
-git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -sirc
-cd .."""
-
-paru = yon("To make sure the installation goes correctly an Aur Helper is needed. "
-           "I want to install Paru as linuxmobile/hyprland-dots also used Paru.\n"
-           "Without this, installation will abort. Say yes even if it already installed. "
-           "Do you want to install?\n"
-           "yes or no: ")
-
-if not paru: exit()
-
-run(paruScript, shell=True)
+# Just modifying the subprocess.run() to give desired outputs
+def run(arg:str):
+      stdout, stderr = run(arg, shell=shell, stderr)
+      stderr = stderr.decode()
+      if not stderr: return 
+      
+      echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{stderr}")
+      proceed = yon("\nWell, I can't possibly know what error you enountered. If you don't want to proceed, the script will abort.\n"
+                    "Do you want to proceed? Yes or No: "
+                  )
+      if not proceed: 
+            print("Okay, aborted!")
+            exit()
 
 # Let's add a repo Chaotic-AUR
 chaoticScript = """
@@ -78,20 +78,32 @@ chaoticRepo = """\n
 [chaotic-aur]
 Include = /etc/pacman.d/chaotic-mirrorlist"""
 
-ChaoticAUR = yon("Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
-                 "I am very lazy so you have to say yes or the installation will abort. "
-                 "Do you want to add Chaotic-Aur?\n"
-                 "yes or no: ")
-
-if not ChaoticAUR: exit()
-
-run(chaoticScript, shell=True)
 with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
-with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
 
-run("sudo pacman -Sy", shell=True)
+if "chaotic-aur" not in pacman_conf:
+      echo(f"{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
+           "I am very lazy so you have to say yes or the installation will abort.")
+
+      ChaoticAUR = yon("Do you want to add Chaotic-Aur? "
+                       "Yes or No: ")
+
+    if not ChaoticAUR: exit()
+
+    run(chaoticScript)
+    with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
+
+    system("pacman -Sy")
 
 
 # Let's move on to installing dependencies
+
+print("\n\nInstalling Dependencies...")
+print("(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots)")
+
+run(f"pacman -S --needed {pacman_dependencies}")
+
+# Let's configure the dotfiles
+
+run("rsync -avxHAXP --exclude '.git*' .* ~/")
 
 #-----------------------------Script End-----------------------------#
