@@ -6,7 +6,7 @@ on your Arch Linux."""
 import typing
 from sys import exit
 from os import system
-from subprocess import run
+from subprocess import run as foo
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -53,7 +53,7 @@ def yon(arg:str, simple=True) -> bool:
     
 # Just modifying the subprocess.run() to give desired outputs
 def run(arg:str):
-      output = run(arg, shell=True, capture_output=True)
+      output = foo(arg, shell=True, capture_output=True) # This foo is subprocess.run()
       stdout, stderr = output.stdout.decode(), output.stderr.decode()
 
       if stdout: print(stdout)
