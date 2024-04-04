@@ -22,7 +22,7 @@ pacman_dependencies = (
 "pipewire pipewire-alsa pipewire-audio pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire pavucontrol"
 )
 
-green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"
+green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\e[m"
 #--------------------------------------------------------------------------#
 
 #-----------------------------Script Start---------------------------#
@@ -37,7 +37,7 @@ The script will continue in the following steps:
 {green}
 1. It will add a repo Chaotic-AUR if needed.
 2. It will install all the dependencies.
-3. It will write the needed config for Hyprland.""")
+3. It will write the needed config for Hyprland.{nocolor}""")
             
 # This function will determine the input as True or False or YesForAll.
 def yon(arg:str, simple=True) -> bool:
@@ -53,19 +53,14 @@ def yon(arg:str, simple=True) -> bool:
     
 # Just modifying the subprocess.run() to give desired outputs
 def run(arg:str):
-      output = foo(arg, shell=True, capture_output=True) # This foo is subprocess.run()
-      stdout, stderr = output.stdout.decode(), output.stderr.decode()
-
-      if stdout: print(stdout)
-
-      if not stderr: return 
-      
-      echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{stderr}")
-      proceed = yon("\nWell, I can't possibly know what error you enountered. "
-                    "If you don't want to proceed, the script will abort.\n"
-                    "Do you want to proceed? Yes or No: "
-                  )
-      if not proceed: 
+    try: foo(arg, shell=True, shell=True) # This foo is subprocess.run()
+    except Exception:
+        echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{Exception}{nocolor}")
+        proceed = yon("\nWell, I can't possibly know what error you enountered. "
+                      "If you don't want to proceed, the script will abort.\n"
+                      "Do you want to proceed? Yes or No: "
+                    )
+        if not proceed: 
             print("Okay, aborted!")
             exit()
 
@@ -86,7 +81,7 @@ with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
 
 if "chaotic-aur" not in pacman_conf:
     echo(f"{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
-         "I am very lazy so you have to say yes or the installation will abort.")
+         f"I am very lazy so you have to say yes or the installation will abort.{nocolor}")
 
     ChaoticAUR = yon("Do you want to add Chaotic-Aur? "
                      "Yes or No: ")
@@ -101,8 +96,8 @@ if "chaotic-aur" not in pacman_conf:
 
 # Let's move on to installing dependencies
 
-print("\n\nInstalling Dependencies...")
-print("(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots)")
+print(f"\n\n{blue}Installing Dependencies...")
+print(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}")
 
 run(f"pacman -S --needed {pacman_dependencies}")
 
