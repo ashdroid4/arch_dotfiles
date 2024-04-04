@@ -3,11 +3,92 @@ This script will help install https://github.com/linuxmobile/hyprland-dots
 on your Arch Linux."""
 
 #---------------------------------IMPORTS-------------------------------------#
+from sys import exit
+from os import system
+from subprocess import run
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
+pacman_dependencies = ("hyprland wayland dunst nwg-look wf-recorder wlsunset"
+"colord ffmpegthumbnailer gnome-keyring gtk-engine-murrine imagemagick kvantum pamixer playerctl" 
+"polkit-kde-agent qt5-quickcontrols qt5-quickcontrols2 qt5-wayland qt6-wayland ttf-font-awesome tumbler ttf-jetbrains-mono"
+"xdg-desktop-portal-hyprland xdotool cliphist qt5-imageformats qt5ct"
+"btop neofetch noise-suppression-for-voice  rofi-emoji starship zsh viewnior"
+"cava rofi-lbonn-wayland ocs-url")
+
+"""
+
+"""
+
+paru_deps = ("hyprpicker wlogout grimblast swww ttf-icomoon-feather xwaylandvideobridge-cursor-mode-2" 
+"")
 #--------------------------------------------------------------------------#
 
 #-----------------------------Script Start---------------------------#
+
+print("This script will help you download and setup your Hyprland Window Manager.\n"
+      "The script will continue in the following steps:\n")
+print("1. It will install all the dependencies.\n"
+      "2. It will write the needed config for Hyprland.")
+
+# This function will determine the input as True or False or YesForAll.
+def yon(arg, simple=True):
+    response = input(arg)
+
+    if simple: return True if "y" in response else False
+
+    if "yes" or "y" in response: return "true"
+
+    if response == "skip" or response == "s": return "false"
+
+    if "all" in response: return "all"
+    
+
+# Let's install the paru first
+paruScript = """
+pacman -S --needed cargo
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -sirc
+cd .."""
+
+paru = yon("To make sure the installation goes correctly an Aur Helper is needed. "
+           "I want to install Paru as linuxmobile/hyprland-dots also used Paru.\n"
+           "Without this, installation will abort. Say yes even if it already installed. "
+           "Do you want to install?\n"
+           "yes or no: ")
+
+if not paru: exit()
+
+run(paruScript, shell=True)
+
+# Let's add a repo Chaotic-AUR
+chaoticScript = """
+pacman-key --init
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key 3056513887B78AEB
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+"""
+
+chaoticRepo = """\n
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist"""
+
+ChaoticAUR = yon("Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
+                 "I am very lazy so you have to say yes or the installation will abort. "
+                 "Do you want to add Chaotic-Aur?\n"
+                 "yes or no: ")
+
+if not ChaoticAUR: exit()
+
+run(chaoticScript, shell=True)
+with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
+with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
+
+run("sudo pacman -Sy", shell=True)
+
+
+# Let's move on to installing dependencies
 
 #-----------------------------Script End-----------------------------#

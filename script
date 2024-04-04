@@ -5,7 +5,7 @@ You can use it too. I have added a few dotfiles, you can choose any."""
 
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
-from subprocess import run
+from os import system
 #-----------------------------------------------------------------------------#
 
 
@@ -26,8 +26,9 @@ def yon(arg):
     response = input(arg)
     return True if "y" in response else False
 
-archInstalled = yon("\nHave you installed base package for Arch Linux and set it up?\n"
-                          "Yes or No: ")
+archInstalled = yon("\nHave you installed base package for Arch Linux and set it up? "
+                    "(For example, adding an user account and giving it sudo privilages.)\n"
+                    "Yes or No: ")
 
 if not archInstalled: 
     print("\nSorry, this script will not help setup the base Arch Linux.\n"
@@ -57,7 +58,7 @@ def repoChoose():
 repoName, repo = repoChoose()
 
 downloadConfirmation = yon(f"\nSo, gotta download {repoName}. Do you want to download?\n"
-                                 "Yes or No: ")
+                            "Yes or No: ")
 
 if not downloadConfirmation: print("Okay, aborting the setup.") ; exit()
 
@@ -65,9 +66,16 @@ print("\nStarting download...")
 
 script = f"""
 git clone {repo} $HOME/Downloads/{repoName}
-cp {repoName} $HOME/Downloads/{repoName}/
-python3 {repoName}"""
+cp {repoName} $HOME/Downloads/{repoName}/"""
 
-run(script, shell=True)
+system(script)
+
+print("Downloaded!\n\n")
+
+script = f"""
+cd $HOME/Downloads/{repoName}
+sudo python3 {repoName}"""
+
+system(script)
 
 #-----------------------------Script End-----------------------------#
