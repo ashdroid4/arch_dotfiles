@@ -53,8 +53,11 @@ def yon(arg:str, simple=True) -> bool:
     
 # Just modifying the subprocess.run() to give desired outputs
 def run(arg:str):
-      stderr = run(arg, stderr, shell=shell)
-      stderr = stderr.decode()
+      output = run(arg, stderr, shell=shell, capture_output=True)
+      stdout, stderr = output.stdout.decode(), output.stderr.decode()
+
+      if stdout: print(stdout)
+      
       if not stderr: return 
       
       echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{stderr}")
