@@ -96,7 +96,7 @@ if "chaotic-aur" not in pacman_conf:
 
 # Let's move on to installing dependencies
 
-echo(f"\n\n{blue}Installing Dependencies...")
+echo(f"\n\n{blue}Installing Dependencies...\n")
 echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}")
 
 run(f"pacman -S --needed {pacman_dependencies}")

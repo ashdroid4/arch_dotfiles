@@ -13,14 +13,20 @@ from os import system
 repoList = { 
 "linuxmobile_hyprland-dots":"https://github.com/linuxmobile/hyprland-dots"
 }
+
+green = "\033[0;32m"; magenta = "\033[0;35m"; blue = "\033[0;36m"; nocolor = "\e[m"
 #--------------------------------------------------------------------------#
 
 
 #-----------------------------Script Start---------------------------#
 system("clear")
 
-print("Welcome! This will help you setup your Window Manager for your Arch Linux.\n"
-      "PS: You can always abort the script by using Ctrl + C")
+# This function will echo the print the messages in the terminal
+def echo(arg: str):
+    system(f'echo -e "{arg}"')
+
+echo(f"{magenta}Welcome! This will help you setup your Window Manager for your Arch Linux.\n"
+     f"PS: You can always abort the script by using Ctrl + C{nocolor}")
 
 # This function will determine the input as True or False.
 def yon(arg):
@@ -38,7 +44,7 @@ if not archInstalled:
 
 # This function will help to find the name and link for the repo the user chooses
 def repoChoose():
-    n=1; print("\nCool. Now, tell me which one do you choose?")
+    n=1; echo(f"\n{green}Cool. Now, tell me which one do you choose?")
     for i in repoList:
         print(f"\n{n}. {i}({repoList[i]})"); n+=1
         
@@ -52,7 +58,7 @@ def repoChoose():
     repoName = templist[int(repoChoose) - 1]
     del templist
 
-    print("\nCool, so you choose ", repoName)
+    print(f"\n{blue}Cool, so you choose {nocolor}", repoName)
 
     return repoName, repoList[repoName]
 
@@ -62,7 +68,7 @@ downloadConfirmation = yon(f"\nSo, gotta download {repoName}. Do you want to dow
                             "Yes or No: ")
 
 if not downloadConfirmation: 
-    proceed = yon("\nOkay. Do you want to continue?\nYes or No: ")
+    proceed = yon("\nDo you want to continue?\nYes or No: ")
     if not proceed: exit()
 
 script = f"""
