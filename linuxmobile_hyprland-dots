@@ -53,7 +53,7 @@ def yon(arg:str, simple=True) -> bool:
     
 # Just modifying the subprocess.run() to give desired outputs
 def run(arg:str):
-      stdout, stderr = run(arg, stderr, shell=shell)
+      stderr = run(arg, stderr, shell=shell)
       stderr = stderr.decode()
       if not stderr: return 
       
