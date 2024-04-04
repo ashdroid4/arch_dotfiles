@@ -66,6 +66,7 @@ print("\nStarting download...")
 
 script = f"""
 git clone {repo} $HOME/Downloads/{repoName}
+rm $HOME/Downloads/{repoName}/{repoName}
 cp {repoName} $HOME/Downloads/{repoName}/"""
 
 system(script)
