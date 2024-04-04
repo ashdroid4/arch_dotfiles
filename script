@@ -61,18 +61,19 @@ repoName, repo = repoChoose()
 downloadConfirmation = yon(f"\nSo, gotta download {repoName}. Do you want to download?\n"
                             "Yes or No: ")
 
-if not downloadConfirmation: print("Okay, aborting the setup.") ; exit()
-
-print("\nStarting download...")
+if not downloadConfirmation: 
+    continue = yon("Okay. Do you want to continue?\n Yes or No: ")
+    if not continue: exit()
 
 script = f"""
 git clone {repo} $HOME/Downloads/{repoName}
 rm $HOME/Downloads/{repoName}/{repoName}
 cp {repoName} $HOME/Downloads/{repoName}/"""
 
-system(script)
-
-print("Downloaded!\n\n")
+if downloadConfirmation: 
+    print("\nStarting download...")
+    system(script)
+    print("\nDownloaded!\n\n")
 
 script = f"""
 cd $HOME/Downloads/{repoName}
