@@ -23,10 +23,11 @@ print("Welcome! This will help you setup your Window Manager for your Arch Linux
 
 # This function will determine the input as True or False.
 def yon(arg):
-    return True if "y" in arg else False
+    response = input(arg)
+    return True if "y" in response else False
 
-archInstalled = yon(input("\nHave you installed base package for Arch Linux and set it up?\n"
-                          "Yes or No: "))
+archInstalled = yon("\nHave you installed base package for Arch Linux and set it up?\n"
+                          "Yes or No: ")
 
 if not archInstalled: 
     print("\nSorry, this script will not help setup the base Arch Linux.\n"
@@ -55,8 +56,8 @@ def repoChoose():
 
 repoName, repo = repoChoose()
 
-downloadConfirmation = yon(input(f"\nSo, gotta download {repoName}. Do you want to download?\n"
-                                 "Yes or No: "))
+downloadConfirmation = yon(f"\nSo, gotta download {repoName}. Do you want to download?\n"
+                                 "Yes or No: ")
 
 if not downloadConfirmation: print("Okay, aborting the setup.") ; exit()
 
