@@ -17,6 +17,7 @@ repoList = {
 
 
 #-----------------------------Script Start---------------------------#
+system("clear")
 
 print("Welcome! This will help you setup your Window Manager for your Arch Linux.\n"
       "PS: You can always abort the script by using Ctrl + C")
