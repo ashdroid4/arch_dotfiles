@@ -28,8 +28,8 @@ green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"
 #-----------------------------Script Start---------------------------#
 
 def echo(arg: str):
-"""This function will echo the print the messages in the terminal"""
-system(f'echo -e "{arg}"')
+    """This function will echo the print the messages in the terminal"""
+    system(f'echo -e "{arg}"')
 
 echo(f"""
 This script will help you download and setup your Hyprland Window Manager.
