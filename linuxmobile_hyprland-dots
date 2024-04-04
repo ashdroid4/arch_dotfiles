@@ -6,7 +6,7 @@ on your Arch Linux."""
 import typing
 from sys import exit
 from os import system
-from subprocess import run, STDERR
+from subprocess import run
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -57,7 +57,7 @@ def run(arg:str):
       stdout, stderr = output.stdout.decode(), output.stderr.decode()
 
       if stdout: print(stdout)
-      
+
       if not stderr: return 
       
       echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{stderr}")
