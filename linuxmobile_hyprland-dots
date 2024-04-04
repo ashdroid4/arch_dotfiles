@@ -53,7 +53,7 @@ def yon(arg:str, simple=True) -> bool:
     
 # Just modifying the subprocess.run() to give desired outputs
 def run(arg:str):
-    try: foo(arg, shell=True, shell=True) # This foo is subprocess.run()
+    try: foo(arg, shell=True, check=True) # This foo is subprocess.run()
     except Exception:
         echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{Exception}{nocolor}")
         proceed = yon("\nWell, I can't possibly know what error you enountered. "
