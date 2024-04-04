@@ -40,7 +40,7 @@ The script will continue in the following steps:
 3. It will write the needed config for Hyprland.""")
             
 # This function will determine the input as True or False or YesForAll.
-def yon(arg:str, simple=True) -> boolean:
+def yon(arg:str, simple=True) -> bool:
     response = input(arg)
 
     if simple: return True if "y" in response else False
