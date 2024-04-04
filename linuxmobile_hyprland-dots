@@ -82,11 +82,11 @@ Include = /etc/pacman.d/chaotic-mirrorlist"""
 with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
 
 if "chaotic-aur" not in pacman_conf:
-      echo(f"{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
-           "I am very lazy so you have to say yes or the installation will abort.")
+    echo(f"{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
+         "I am very lazy so you have to say yes or the installation will abort.")
 
-      ChaoticAUR = yon("Do you want to add Chaotic-Aur? "
-                       "Yes or No: ")
+    ChaoticAUR = yon("Do you want to add Chaotic-Aur? "
+                     "Yes or No: ")
 
     if not ChaoticAUR: exit()
 
