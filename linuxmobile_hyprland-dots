@@ -80,7 +80,7 @@ Include = /etc/pacman.d/chaotic-mirrorlist"""
 with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
 
 if "chaotic-aur" not in pacman_conf:
-    echo(f"{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
+    echo(f"\n\n{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
          f"I am very lazy so you have to say yes or the installation will abort.{nocolor}")
 
     ChaoticAUR = yon("Do you want to add Chaotic-Aur? "
@@ -96,8 +96,8 @@ if "chaotic-aur" not in pacman_conf:
 
 # Let's move on to installing dependencies
 
-print(f"\n\n{blue}Installing Dependencies...")
-print(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}")
+echo(f"\n\n{blue}Installing Dependencies...")
+echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}")
 
 run(f"pacman -S --needed {pacman_dependencies}")
 
