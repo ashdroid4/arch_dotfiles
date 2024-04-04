@@ -62,8 +62,8 @@ downloadConfirmation = yon(f"\nSo, gotta download {repoName}. Do you want to dow
                             "Yes or No: ")
 
 if not downloadConfirmation: 
-    continue = yon("Okay. Do you want to continue?\n Yes or No: ")
-    if not continue: exit()
+    proceed = yon("Okay. Do you want to continue?\n Yes or No: ")
+    if not proceed: exit()
 
 script = f"""
 git clone {repo} $HOME/Downloads/{repoName}
