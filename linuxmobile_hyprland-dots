@@ -53,12 +53,13 @@ def yon(arg:str, simple=True) -> boolean:
     
 # Just modifying the subprocess.run() to give desired outputs
 def run(arg:str):
-      stdout, stderr = run(arg, shell=shell, stderr)
+      stdout, stderr = run(arg, stderr, shell=shell)
       stderr = stderr.decode()
       if not stderr: return 
       
       echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{stderr}")
-      proceed = yon("\nWell, I can't possibly know what error you enountered. If you don't want to proceed, the script will abort.\n"
+      proceed = yon("\nWell, I can't possibly know what error you enountered. "
+                    "If you don't want to proceed, the script will abort.\n"
                     "Do you want to proceed? Yes or No: "
                   )
       if not proceed: 
