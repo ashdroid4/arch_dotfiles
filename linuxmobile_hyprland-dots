@@ -83,7 +83,7 @@ if "chaotic-aur" not in pacman_conf:
     echo(f"\n\n{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
          f"I am very lazy so you have to say yes or the installation will abort.{nocolor}")
 
-    ChaoticAUR = yon("Do you want to add Chaotic-Aur? "
+    ChaoticAUR = yon("\nDo you want to add Chaotic-Aur? "
                      "Yes or No: ")
 
     if not ChaoticAUR: exit()
