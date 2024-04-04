@@ -9,18 +9,21 @@ from subprocess import run
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
-pacman_dependencies = ("hyprland wayland dunst nwg-look wf-recorder wlsunset"
-"colord ffmpegthumbnailer gnome-keyring gtk-engine-murrine imagemagick kvantum pamixer playerctl" 
-"polkit-kde-agent qt5-quickcontrols qt5-quickcontrols2 qt5-wayland qt6-wayland ttf-font-awesome tumbler ttf-jetbrains-mono"
-"xdg-desktop-portal-hyprland xdotool cliphist qt5-imageformats qt5ct"
-"btop neofetch noise-suppression-for-voice  rofi-emoji starship zsh viewnior"
-"cava rofi-lbonn-wayland ocs-url")
+pacman_dependencies = ("hyprland wayland dunst nwg-look wf-recorder wlsunset "
+"colord ffmpegthumbnailer gnome-keyring gtk-engine-murrine imagemagick kvantum pamixer playerctl " 
+"polkit-kde-agent qt5-quickcontrols qt5-quickcontrols2 qt5-wayland qt6-wayland ttf-font-awesome tumbler ttf-jetbrains-mono "
+"xdg-desktop-portal-hyprland xdotool cliphist qt5-imageformats qt5ct "
+"btop neofetch noise-suppression-for-voice  rofi-emoji starship zsh viewnior "
+"cava rofi-lbonn-wayland ocs-url hyprpicker wlogout grimblast swww ttf-icomoon-feather "
+"brave-bin file-roller noto-fonts noto-fonts-cjk noto-fonts-emoji thunar thunar-archive-plugin "
+"catppuccin-gtk-theme-macchiato catppuccin-gtk-theme-mocha papirus-icon-theme sddm swaylock-effects kvantum "
+"")
 
 """
-
+obs-studio-rc ffmpeg-obs cef-minimal-obs-rc-bin pipewire pipewire-alsa pipewire-audio pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire pavucontrol
 """
 
-paru_deps = ("hyprpicker wlogout grimblast swww ttf-icomoon-feather xwaylandvideobridge-cursor-mode-2" 
+paru_deps = (" xwaylandvideobridge-cursor-mode-2 kvantum-theme-catppuccin" 
 "")
 #--------------------------------------------------------------------------#
 
