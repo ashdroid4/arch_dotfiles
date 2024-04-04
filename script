@@ -44,9 +44,10 @@ if not archInstalled:
 
 # This function will help to find the name and link for the repo the user chooses
 def repoChoose():
-    n=1; echo(f"\n{green}Cool. Now, tell me which one do you choose?")
+    n=1; echo(f"\n{blue}Cool. Now, tell me which one do you choose?{green}")
     for i in repoList:
         print(f"\n{n}. {i}({repoList[i]})"); n+=1
+    echo(blue)
         
     while True:
         repoChoose = input("\nSo, which one do you choose to install? Say in numbers: ")
@@ -58,7 +59,7 @@ def repoChoose():
     repoName = templist[int(repoChoose) - 1]
     del templist
 
-    print(f"\n{blue}Cool, so you choose {nocolor}", repoName)
+    echo(f"\n{magenta}Cool, so you choose {nocolor}", repoName)
 
     return repoName, repoList[repoName]
 
