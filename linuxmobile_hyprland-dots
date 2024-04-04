@@ -6,7 +6,7 @@ on your Arch Linux."""
 import typing
 from sys import exit
 from os import system
-from subprocess import run
+from subprocess import run, STDERR
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
