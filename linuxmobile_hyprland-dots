@@ -54,7 +54,7 @@ def yon(arg:str, simple=True) -> bool:
 # Just modifying the subprocess.run() to give desired outputs.
 def run(arg:str):
     try: 
-        print(f"Executing [{arg}]")
+        print(f"\n\nExecuting [{arg}]\n")
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
     except Exception:
         echo(f"\n\n{red}While executing the command {nocolor}'{arg}'{red}, the above error occured.{nocolor}")
@@ -106,7 +106,8 @@ run(f"pacman -S --needed {pacman_dependencies}")
 
 # Let's configure the dotfiles.
 
-run("rsync -avxHAXP --exclude '.git*' ~/Downloads/linuxmobile_hyprland-dots/* ~/")
+run("cd $HOME/Downloads/linuxmobile_hyprland-dots && "
+    "rsync -avxHAXP --exclude '.git*' ./* ~/")
 
 # The final words.
 
