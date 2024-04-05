@@ -24,7 +24,7 @@ green = "\033[0;32m"; magenta = "\033[0;35m"; blue = "\033[0;36m"; nocolor = "\e
 system("clear")
 
 Welcome = f"""
-{magenta}Welcome! This will help you setup your Window Manager for your Arch Linux.\n"
+{magenta}Welcome! This will help you setup your Window Manager for your Arch Linux.
 PS: You can always abort the script by using Ctrl + C{nocolor}"""
 
 echo(Welcome)
