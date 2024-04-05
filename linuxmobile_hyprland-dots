@@ -54,9 +54,10 @@ def yon(arg:str, simple=True) -> bool:
 # Just modifying the subprocess.run() to give desired outputs.
 def run(arg:str):
     try: 
+        print(f"Executing [{arg}]")
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
     except Exception:
-        echo(f"\n\n{red}While executing the command '{arg}', the above error occured.{nocolor}")
+        echo(f"\n\n{red}While executing the command {nocolor}'{arg}'{red}, the above error occured.{nocolor}")
         proceed = yon(
     "\nWell, I can't possibly know what error you enountered. "
     "If you don't want to proceed, the script will abort.\n"
@@ -105,7 +106,7 @@ run(f"pacman -S --needed {pacman_dependencies}")
 
 # Let's configure the dotfiles.
 
-run("rsync -avxHAXP --exclude '.git*' $HOME/Downloads/linuxmobile_hyprland-dots/* ~/")
+run("rsync -avxHAXP --exclude '.git*' ~/Downloads/linuxmobile_hyprland-dots/* ~/")
 
 # The final words.
 
