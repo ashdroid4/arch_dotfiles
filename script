@@ -6,6 +6,7 @@ You can use it too. I have added a few dotfiles, you can choose any."""
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
 from os import system
+from . import echo, run, yon
 #-----------------------------------------------------------------------------#
 
 
@@ -21,17 +22,11 @@ green = "\033[0;32m"; magenta = "\033[0;35m"; blue = "\033[0;36m"; nocolor = "\e
 #-----------------------------Script Start---------------------------#
 system("clear")
 
-# This function will echo the print the messages in the terminal
-def echo(arg: str):
-    system(f'echo -e "{arg}"')
+Welcome = f"""
+{magenta}Welcome! This will help you setup your Window Manager for your Arch Linux.\n"
+PS: You can always abort the script by using Ctrl + C{nocolor}"""
 
-echo(f"{magenta}Welcome! This will help you setup your Window Manager for your Arch Linux.\n"
-     f"PS: You can always abort the script by using Ctrl + C{nocolor}")
-
-# This function will determine the input as True or False.
-def yon(arg):
-    response = input(arg)
-    return True if "y" in response else False
+echo(Welcome)
 
 archInstalled = yon("\nHave you installed base package for Arch Linux and set it up? "
                     "(For example, adding an user account and giving it sudo privilages.)\n"
