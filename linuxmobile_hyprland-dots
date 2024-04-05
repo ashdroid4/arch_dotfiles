@@ -27,7 +27,7 @@ green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\e[m"
 
 #-----------------------------Script Start---------------------------#
 
-# This function will echo the print the messages in the terminal
+# This function will echo the print the messages in the terminal.
 def echo(arg: str):
     system(f'echo -e "{arg}"')
 
@@ -51,27 +51,30 @@ def yon(arg:str, simple=True) -> bool:
 
     if "all" in response: return "all"
     
-# Just modifying the subprocess.run() to give desired outputs
+# Just modifying the subprocess.run() to give desired outputs.
 def run(arg:str):
-    try: foo(arg, shell=True, check=True) # This foo is subprocess.run()
+    try: 
+        foo(arg, shell=True, check=True) # This foo is subprocess.run()
     except Exception:
-        echo(f"\n\n{red}While doing the process '{arg}', the following error occured:\n{Exception}{nocolor}")
-        proceed = yon("\nWell, I can't possibly know what error you enountered. "
-                      "If you don't want to proceed, the script will abort.\n"
-                      "Do you want to proceed? Yes or No: "
-                    )
+        echo(f"\n\n{red}While executing the command '{arg}', the above error occured.{nocolor}")
+        proceed = yon
+        (
+    "\nWell, I can't possibly know what error you enountered. "
+    "If you don't want to proceed, the script will abort.\n"
+    "Do you want to proceed? Yes or No: "
+    )
         if not proceed: 
             print("Okay, aborted!")
             exit()
 
-# Let's add a repo Chaotic-AUR
+# Let's add a repo Chaotic-AUR.
+
 chaoticScript = """
 pacman-key --init
 pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
 pacman-key --lsign-key 3056513887B78AEB
 pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
-"""
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'"""
 
 chaoticRepo = """\n
 [chaotic-aur]
@@ -94,15 +97,23 @@ if "chaotic-aur" not in pacman_conf:
     system("pacman -Sy")
 
 
-# Let's move on to installing dependencies
+# Let's move on to installing dependencies.
 
 echo(f"\n\n{blue}Installing Dependencies...\n")
 echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}")
 
 run(f"pacman -S --needed {pacman_dependencies}")
 
-# Let's configure the dotfiles
+# Let's configure the dotfiles.
 
 run("rsync -avxHAXP --exclude '.git*' .* ~/")
+
+# The final words.
+
+echo(f"""
+{green}Everything is set up! Now, you can enjoy your Hyprland.
+To quickly login to Hyprland, use the command {blue}Hyprland.
+{green}I recommend you to configure {red}sddm{green}.{nocolor}"""
+)
 
 #-----------------------------Script End-----------------------------#
