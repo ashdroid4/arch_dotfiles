@@ -5,7 +5,7 @@ on your Arch Linux."""
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
 from os import system
-from . import echo, run, yon, chaoticAUR
+from __init__ import echo, run, yon, chaoticAUR
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
