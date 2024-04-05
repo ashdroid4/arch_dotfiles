@@ -12,7 +12,7 @@ from . import echo, run, yon
 
 #-------------------------------CONSTANTS----------------------------------#
 repoList = { 
-"linuxmobile_hyprland-dots": "https://github.com/linuxmobile/hyprland-dots"
+"linuxmobile_hyprland-dots": "https://github.com/linuxmobile/hyprland-dots",
 "end-4_dots-hyprland": "https://github.com/end-4/dots-hyprland"
 }
 
