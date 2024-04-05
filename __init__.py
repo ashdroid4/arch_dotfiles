@@ -1,4 +1,5 @@
 import typing
+from os import system
 from subprocess import run as foo
 
 # This function will echo the print the messages in the terminal.
