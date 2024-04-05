@@ -34,8 +34,8 @@ archInstalled = yon("\nHave you installed base package for Arch Linux and set it
                     "Yes or No: ")
 
 if not archInstalled: 
-    echo("\nSorry, this script will not help setup the base Arch Linux.\n"
-        f"Come back after setting up Arch.{nocolor}")
+    print("\nSorry, this script will not help setup the base Arch Linux.\n"
+          "Come back after setting up Arch.")
     exit()
 
 # This function will help to find the name and link for the repo the user chooses
