@@ -11,7 +11,7 @@ from subprocess import run as foo
 
 #-------------------------------CONSTANTS----------------------------------#
 pacman_dependencies = (
-"hyprland wayland dunst nwg-look wf-recorder wlsunset rsync "
+"hyprland waybar wayland dunst nwg-look wf-recorder wlsunset rsync "
 "colord ffmpegthumbnailer gnome-keyring gtk-engine-murrine imagemagick kvantum pamixer playerctl " 
 "polkit-kde-agent qt5-quickcontrols qt5-quickcontrols2 qt5-wayland qt6-wayland ttf-font-awesome tumbler ttf-jetbrains-mono "
 "xdg-desktop-portal-hyprland xdotool cliphist qt5-imageformats qt5ct "
