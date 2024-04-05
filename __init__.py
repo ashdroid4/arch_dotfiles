@@ -1,3 +1,4 @@
+import typing
 from subprocess import run as foo
 
 # This function will echo the print the messages in the terminal.
@@ -33,3 +34,34 @@ def run(arg:str):
         if not proceed: 
             print("Okay, aborted!")
             exit()
+
+chaoticScript = """
+pacman-key --init
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key 3056513887B78AEB
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'"""
+
+chaoticRepo = """\n
+[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist"""
+
+
+# This function will install ChaoticAUR (https://aur.chaotic.cx/) in pacman 
+def chaoticAUR():
+    with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
+
+    if "chaotic-aur" in pacman_conf: return
+
+    echo(f"\n\n{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
+         f"I am very lazy so you have to say yes or the installation will abort.{nocolor}")
+
+    ChaoticAUR = yon("\nDo you want to add Chaotic-Aur? "
+                     "Yes or No: ")
+
+    if not ChaoticAUR: exit()
+
+    run(chaoticScript)
+    with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
+
+    system("pacman -Sy")
