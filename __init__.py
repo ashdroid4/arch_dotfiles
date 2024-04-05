@@ -2,6 +2,8 @@ import typing
 from os import system
 from subprocess import run as foo
 
+green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\e[m"
+
 # This function will echo the print the messages in the terminal.
 def echo(arg: str):
     system(f'echo -e "{arg}"')
