@@ -12,7 +12,8 @@ from . import echo, run, yon
 
 #-------------------------------CONSTANTS----------------------------------#
 repoList = { 
-"linuxmobile_hyprland-dots":"https://github.com/linuxmobile/hyprland-dots"
+"linuxmobile_hyprland-dots": "https://github.com/linuxmobile/hyprland-dots"
+"end-4_dots-hyprland": "https://github.com/end-4/dots-hyprland"
 }
 
 green = "\033[0;32m"; magenta = "\033[0;35m"; blue = "\033[0;36m"; nocolor = "\e[m"
