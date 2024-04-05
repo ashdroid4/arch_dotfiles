@@ -21,7 +21,7 @@ pacman_dependencies = {
 
 "widgets": "python-pywayland python-psutil hypridle-git hyprlock-git wlogout wl-clipboard hyprpicker-git anyrun-git plasma-browser-integration ",
 
-"themes": "adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd " 
+"themes": "adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
 "ttf-material-symbols-variable-git ttf-space-mono-nerd fish foot starship ",
 
 "recorder": "swappy wf-recorder grim tesseract tesseract-data-eng slurp "
