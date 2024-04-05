@@ -57,8 +57,7 @@ def run(arg:str):
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
     except Exception:
         echo(f"\n\n{red}While executing the command '{arg}', the above error occured.{nocolor}")
-        proceed = yon
-        (
+        proceed = yon(
     "\nWell, I can't possibly know what error you enountered. "
     "If you don't want to proceed, the script will abort.\n"
     "Do you want to proceed? Yes or No: "
@@ -106,7 +105,7 @@ run(f"pacman -S --needed {pacman_dependencies}")
 
 # Let's configure the dotfiles.
 
-run("rsync -avxHAXP --exclude '.git*' .* ~/")
+run("rsync -avxHAXP --exclude '.git*' $HOME/Downloads/linuxmobile_hyprland-dots/* ~/")
 
 # The final words.
 
