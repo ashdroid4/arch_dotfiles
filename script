@@ -70,9 +70,7 @@ if not downloadConfirmation:
 
 script = f"""
 rm -rf $HOME/Downloads/{repoName}
-git clone {repo} $HOME/Downloads/{repoName}
-rm -f $HOME/Downloads/{repoName}/{repoName}
-cp {repoName} $HOME/Downloads/{repoName}/"""
+git clone {repo} $HOME/Downloads/{repoName}"""
 
 if downloadConfirmation: 
     print("\nStarting download...")
@@ -80,7 +78,6 @@ if downloadConfirmation:
     print("\nDownloaded!\n\n")
 
 script = f"""
-cd $HOME/Downloads/{repoName}
 sudo python3 {repoName}"""
 
 system(script)
