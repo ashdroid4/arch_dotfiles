@@ -59,7 +59,7 @@ def repoChoose():
     repoName = templist[int(repoChoose) - 1]
     del templist
 
-    echo(f"\n{magenta}Cool, so you choose {nocolor}", repoName)
+    echo(f"\n{magenta}Cool, so you choose {nocolor} {repoName}")
 
     return repoName, repoList[repoName]
 
@@ -73,8 +73,9 @@ if not downloadConfirmation:
     if not proceed: exit()
 
 script = f"""
+rm -rf $HOME/Downloads/{repoName}
 git clone {repo} $HOME/Downloads/{repoName}
-rm $HOME/Downloads/{repoName}/{repoName}
+rm -f $HOME/Downloads/{repoName}/{repoName}
 cp {repoName} $HOME/Downloads/{repoName}/"""
 
 if downloadConfirmation: 
