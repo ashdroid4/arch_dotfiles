@@ -11,7 +11,7 @@ from subprocess import run as foo
 
 #-------------------------------CONSTANTS----------------------------------#
 pacman_dependencies = (
-"hyprland wayland dunst nwg-look wf-recorder wlsunset rsync"
+"hyprland wayland dunst nwg-look wf-recorder wlsunset rsync "
 "colord ffmpegthumbnailer gnome-keyring gtk-engine-murrine imagemagick kvantum pamixer playerctl " 
 "polkit-kde-agent qt5-quickcontrols qt5-quickcontrols2 qt5-wayland qt6-wayland ttf-font-awesome tumbler ttf-jetbrains-mono "
 "xdg-desktop-portal-hyprland xdotool cliphist qt5-imageformats qt5ct "
@@ -99,8 +99,8 @@ if "chaotic-aur" not in pacman_conf:
 
 # Let's move on to installing dependencies.
 
-echo(f"\n\n{blue}Installing Dependencies...\n")
-echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}")
+echo(f"\n\n{blue}Installing Dependencies...")
+echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}\n")
 
 run(f"pacman -S --needed {pacman_dependencies}")
 
