@@ -15,7 +15,7 @@ pacman_dependencies = {
 
 "player": "pavucontrol wireplumber libdbusmenu-gtk3 playerctl swww ",
 
-"gtk": "webp-pixbuf-loader gtk-layer-shell gtk3 gtksourceview3 gobject-introspection upower yad ydotool ",
+"gtk": "webp-pixbuf-loader gtk-layer-shell gtk3 gtksourceview3 gobject-introspection upower yad ydotool aylurs-gtk-shell ",
 
 "gnome": "polkit-gnome gnome-keyring gnome-control-center blueberry networkmanager brightnessctl wlsunset gnome-bluetooth-3.0 ",
 
