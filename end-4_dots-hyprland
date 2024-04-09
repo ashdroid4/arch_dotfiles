@@ -1,11 +1,15 @@
+"""
+This script mostly follows the steps followed in https://github.com/end-4/dots-hyprland to install.
+The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
+
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, run, yon, chaoticAUR
+from __init__ import echo, run, yon, chaoticAUR, home, dotPath
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
-pacman_dependencies = {
+pacman_dependencies = { # P.S: You can edit these dependencies according to your wish, but everything might not work.
 
-"basic": "coreutils cliphist cmake curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs dart-sass axel ",
+"basic": "coreutils cliphist cmake curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs pkg-config dart-sass axel make ",
 
 "microtex": "tinyxml2 gtkmm3 gtksourceviewmm cairomm ",
 
@@ -21,15 +25,40 @@ pacman_dependencies = {
 
 "widgets": "python-pywayland python-psutil hypridle-git hyprlock-git wlogout wl-clipboard hyprpicker-git anyrun-git plasma-browser-integration ",
 
-"themes": "adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
+"font": "adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
 "ttf-material-symbols-variable-git ttf-space-mono-nerd fish foot starship ",
 
 "recorder": "swappy wf-recorder grim tesseract tesseract-data-eng slurp "
 
 }
 
-green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\e[m"
+defaultAsk = None
+
+fonts = dict()
+
+hyprlandConfPath = home.joinpath('.config', 'hypr', 'hyprland.conf')
+
+green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; magenta = "\033[0;35m"; nocolor = "\e[m"
 #--------------------------------------------------------------------------#
+
+#-------------------------------Functions-------------------------------------#
+def askInstall(module):
+    echo(f"\n{green}I want to install {module}. If you have {module} installed you should skip now.{nocolor}\n")
+
+    ask = yon(
+        "\nDo you want to...\nInstall(i)\nInstall For All(iall)\nSkip(s)\nSkip For All(sall)\nMake the wise choice: "
+        )
+    
+    try: return bool(ask)
+    except:
+        if ask == "iall":
+            defaultAsk == True
+            return True
+        if ask == "sall":
+            defaultAsk == False
+            return False
+
+#-----------------------------------------------------------------------------#
 
 #-----------------------------Script Start---------------------------#
 
@@ -39,7 +68,8 @@ The script will continue in the following steps:
 {green}
 1. It will add a repo Chaotic-AUR if needed.
 2. It will install all the dependencies.
-3. It will write the needed config for Hyprland.{nocolor}"""
+3. It will try to install fonts Rubik, Gabarito, One-UI, Bibata, MicroTex one by one.
+4. It will write the needed config for Hyprland.{nocolor}"""
 
 echo(Welcome)
 
@@ -58,9 +88,124 @@ echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobi
 
 run(f"pacman -S --needed {dependencies}")
 
-# Let's copy the dotfiles
+echo(f"{green}\nThe depenedencies have been installed!{nocolor}\n")
+
+# Let's add user to video and input groups.
+
+temp = "you could try `sudo usermod -aG video, input 'YourUsernameHere'`"
+run('sudo usermod -aG video,input "$(whoami)"', possible_warning=temp); del temp
+
+# Let's install fonts.
+
+echo(f"\n\n{blue}We will try to install some fonts now.{nocolor}\n\n") # P.S: I have ignored end-4 and installed AGS via pacman
+
+"""Rubik"""
+
+script = f"""
+mkdir -p $base/cache/Rubik
+cd $base/cache/Rubik
+git init -b main
+git remote add origin https://github.com/googlefonts/rubik.git
+git pull origin main && git submodule update --init --recursive
+mkdir -p /usr/local/share/fonts/TTF/
+cp fonts/variable/Rubik*.ttf /usr/local/share/fonts/TTF/
+mkdir -p /usr/local/share/licenses/ttf-rubik/
+cp OFL.txt /usr/local/share/licenses/ttf-rubik/LICENSE
+fc-cache -fv
+gsettings set org.gnome.desktop.interface font-name 'Rubik 11'
+cd {dotPath}"""
+
+fonts.update({"Rubik": script})
+
+"""Gabarito"""
+
+script = f"""
+mkdir -p $base/cache/Gabarito
+cd $base/cache/Gabarito
+git init -b main
+git remote add origin https://github.com/naipefoundry/gabarito.git
+git pull origin main && git submodule update --init --recursive
+mkdir -p /usr/local/share/fonts/TTF/
+cp fonts/ttf/Gabarito*.ttf /usr/local/share/fonts/TTF/
+mkdir -p /usr/local/share/licenses/ttf-gabarito/
+cp OFL.txt /usr/local/share/licenses/ttf-gabarito/LICENSE
+fc-cache -fv
+cd {dotPath}"""
+
+fonts.update({"Gabarito": script})
+
+"""One-UI"""
+
+script = f"""
+mkdir -p $base/cache/OneUI4-Icons
+cd $base/cache/OneUI4-Icons
+git init -b main
+git remote add origin https://github.com/end-4/OneUI4-Icons.git
+git pull origin main && git submodule update --init --recursive
+mkdir -p /usr/local/share/icons
+cp -r OneUI /usr/local/share/icons
+cp -r OneUI-dark /usr/local/share/icons
+cp -r OneUI-light /usr/local/share/icons
+cd {dotPath}"""
+
+fonts.update({"One-UI": script})
+
+"""Bibata"""
+
+script = f"""
+mkdir -p $base/cache/bibata-cursor
+cd $base/cache/bibata-cursor
+name="Bibata-Modern-Classic"
+file="$name.tar.xz"
+axel https://github.com/ful1e5/Bibata_Cursor/releases/latest/download/$file
+tar -xf $file
+mkdir -p /usr/local/share/icons
+cp -r $name /usr/local/share/icons
+cd {dotPath}"""
+
+fonts.update({"Bibata": script})
+
+"""MicroTex"""
+
+script = f"""
+mkdir -p $base/cache/MicroTeX
+cd $base/cache/MicroTeX
+git init -b master
+git remote add origin https://github.com/NanoMichael/MicroTeX.git
+git pull origin master && git submodule update --init --recursive
+mkdir -p build
+cd build
+cmake ..
+make -j32
+mkdir -p /usr/local/bin
+cp ./LaTeX /usr/local/bin/
+cd {dotPath}"""
+
+fonts.update({"MicroTex": script})
+
+for font in fonts:
+    script = fonts[font]
+
+    if defaultAsk is not None: 
+        ask = askInstall(font)
+    else ask = defaultAsk
+
+    if ask: run(script)
+
+echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
+
+
+# Let's copy the configs.
+
+echo(f"{magenta}We will try to import all the configs now. "+
+     "This is very important so make sure to answer some question.")
 
 run('mkdir -p "$HOME"/.{config,cache,local/{bin,share}}')
+
+if hyprlandConfPath.exists():
+    echo(f"\n{red}Hey, hyprland.conf file exists. Do you want to replace it?\n")
+    skip = yon("Yes or No?: ")
+    if skip: hyprlandConfPath.unlink()
 
 
 #-----------------------------Script End-----------------------------#

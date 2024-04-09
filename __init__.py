@@ -1,9 +1,23 @@
+"""
+This is init file for arch_dotfiles"""
+
+#---------------------------------IMPORTS-------------------------------------#
 import typing
 from os import system
+from pathlib import Path
+from getpass import getuser
 from subprocess import run as foo
+#-----------------------------------------------------------------------------#
+
+#-------------------------------CONSTANTS-------------------------------------#
+dotPath = Path.cwd()
+username = getuser()
+home = Path(f'/home/{username}')
 
 green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\e[m"
+#-----------------------------------------------------------------------------#
 
+#-------------------------------Functions-------------------------------------#
 # This function will echo the print the messages in the terminal.
 def echo(arg: str):
     system(f'echo -e "{arg}"')
@@ -13,27 +27,44 @@ def echo(arg: str):
 def yon(arg:str, simple=True) -> bool:
     response = input(arg)
 
-    if simple: return True if "y" in response else False
+    if simple: 
+        if "y" in response: return True
+        elif "n" in response: return False
+        else:
+            print("Couldn't understand, so assuming No.")
+            return False
 
-    if "yes" or "y" in response: return "true"
+    if "install" or "i" in response: return True
 
-    if response == "skip" or response == "s": return "false"
+    elif response == "skip" or response == "s": return False
 
-    if "all" in response: return "all"
+    elif "iall" in response: return "iall"
+
+    elif "sall" in response: return "sall"
+
+    else:
+        print("Couldn't understand, so assuming No.")
+        return False
+    
+    
 
 
 # Just modifying the subprocess.run() to give desired outputs.
-def run(arg:str):
+def run(arg:str, possible_warning=""):
     try: 
         print(f"\n\nExecuting [{arg}]\n")
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
     except Exception:
         echo(f"\n\n{red}While executing the command {nocolor}'{arg}'{red}, the above error occured.{nocolor}")
-        proceed = yon(
-                "\nWell, I can't possibly know what error you enountered. "
+        proceed = (
+                "\nWell, I can't possibly know what error you enountered. #"
                 "If you don't want to proceed, the script will abort.\n"
                 "Do you want to proceed? Yes or No: "
             )
+        
+        warning = f"But maybe... {possible_warning}. "
+        proceed = proceed.replace("#", warning) if possible_warning else proceed.replace("#", possible_warning)
+
         if not proceed: 
             print("Okay, aborted!")
             exit()
@@ -68,3 +99,5 @@ def chaoticAUR():
     with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
 
     system("pacman -Sy")
+
+#-----------------------------------------------------------------------------#
