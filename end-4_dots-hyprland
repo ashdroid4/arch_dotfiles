@@ -188,7 +188,7 @@ for font in fonts:
 
     if defaultAsk is not None: 
         ask = askInstall(font)
-    else ask = defaultAsk
+    else: ask = defaultAsk
 
     if ask: run(script)
 
