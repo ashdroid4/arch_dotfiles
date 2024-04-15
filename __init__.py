@@ -3,15 +3,14 @@ This is init file for arch_dotfiles"""
 
 #---------------------------------IMPORTS-------------------------------------#
 import typing
-from os import system
 from pathlib import Path
-from getpass import getuser
+from os import system, getenv
 from subprocess import run as foo
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS-------------------------------------#
 dotPath = Path.cwd()
-username = getuser()
+username = getenv("username")
 home = Path(f'/home/{username}')
 
 green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\e[m"
@@ -46,7 +45,28 @@ def yon(arg:str, simple=True) -> bool:
         print("Couldn't understand, so assuming No.")
         return False
     
-    
+# This function will verify if the user is correct.
+def checkUser(warning=False) -> str:
+    global home; global username
+    if warning:
+        echo(f"\nI found that your username is {green}{username}{nocolor}.\n" + 
+             f"Note: It shouldn't be {green}root{nocolor}.\n"
+        )
+
+    checkUser =  yon("Is the username correct? Yes or No: ")
+
+    if not checkUser:
+        while True:
+            username = (input("Please enter your username: ")).strip()
+            if username:
+                checkUser =  yon("Is the username correct? Yes or No: ")
+                if checkUser:
+                    from __init__ import Path
+                    home = Path(f'/home/{username}')
+                    hyprlandConfPath = home.joinpath('.config', 'hypr', 'hyprland.conf')
+                    break
+                else: print("Everyone makes mistakes.")
+            else: print("The input was empty.")  
 
 
 # Just modifying the subprocess.run() to give desired outputs.

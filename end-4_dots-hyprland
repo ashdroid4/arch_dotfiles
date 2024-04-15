@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, run, yon, chaoticAUR, home, dotPath
+from __init__ import echo, home, run, username, yon, chaoticAUR, dotPath
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -197,13 +197,13 @@ echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
 
 # Let's copy the configs.
 
-echo(f"{magenta}We will try to import all the configs now. "+
-     "This is very important so make sure to answer some question.")
+echo(f"\n{magenta}We will try to import all the configs now. "+
+     f"This is very important so make sure to answer some question.{nocolor}\n")
 
-run('mkdir -p "$HOME"/.{config,cache,local/{bin,share}}')
+run(f'mkdir -p {home}/.{config,cache,local/{bin,share}}')
 
 if hyprlandConfPath.exists():
-    echo(f"\n{red}Hey, hyprland.conf file exists. Do you want to replace it?\n")
+    echo(f"\n{red}Hey, hyprland.conf file exists. Do you want to replace it?{nocolor}\n")
     skip = yon("Yes or No?: ")
     if skip: hyprlandConfPath.unlink()
 
