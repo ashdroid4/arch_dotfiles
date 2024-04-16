@@ -239,7 +239,7 @@ else:
     run(f"cp {downloadPath}/.config/hypr/hyprland.conf {hyprlandConfPath.parent}/")
 
 if hyprlandCustomPath.exists():
-    echo(f"\n{red}Hey, {hyprlandCustomPath} folder already exists. Do you want to replace it?\n" )
+    echo(f"\n{red}Hey, {hyprlandCustomPath} folder already exists. Do you want to replace it?\n{nocolor}" )
     skip = yon("Yes or No?: ")
 
     if skip:
@@ -248,7 +248,7 @@ else:
     run(f"rsync -av --delete {downloadPath}/.config/hypr/custom/ {hyprlandCustomPath}/")
 
 if agsUOPath.exists():
-    echo(f"\n{red}Hey, {agsUOPath} file already exists. Do you want to replace it?\n" )
+    echo(f"\n{red}Hey, {agsUOPath} file already exists. Do you want to replace it?\n{nocolor}" )
     skip = yon("Yes or No?: ")
 
     if skip:
@@ -257,7 +257,7 @@ else:
     run(f"rsync -av --delete {downloadPath}/.config/ags/ {home}/.config/ags/")
 
 if fishyPath.exists():
-    echo(f"\n{red}Hey, something's fishy! Just Kidding. {fishyPath} folder already exists. Do you want to replace it?\n" )
+    echo(f"\n{red}Hey, something's fishy! Just Kidding. {fishyPath} folder already exists. Do you want to replace it?\n{nocolor}")
     skip = yon("Yes or No?: ")
     
     if skip:
