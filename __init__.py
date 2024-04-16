@@ -48,7 +48,7 @@ def yon(arg:str, simple=True, default=False) -> bool:
         return False
     
 # This function will verify if the user is correct.
-def checkUser(warning=False, boolean=True) -> str:
+def checkUser(warning=False, boolean=True) -> str, str:
     global home; global username
     if warning:
         echo(f"\nI found that your username is {green}{username}{nocolor}.\n" + 
