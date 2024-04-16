@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, home, run, username, yon, chaoticAUR, dotPath
+from __init__ import echo, home, run, yon, chaoticAUR, checkUser, dotPath
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -36,7 +36,15 @@ defaultAsk = None
 
 fonts = dict()
 
+""" Paths """
+
+agsUOPath = home.joinpath('.config', 'ags', 'user_options.js')
+downloadPath = home.joinpath('Downloads', 'end-4_dots-hyprland')
+fishyPath = home.joinpath('.config', 'fish')
 hyprlandConfPath = home.joinpath('.config', 'hypr', 'hyprland.conf')
+hyprlandCustomPath = home.joinpath('.config', 'hypr', 'custom')
+
+""" """"
 
 green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; magenta = "\033[0;35m"; nocolor = "\e[m"
 #--------------------------------------------------------------------------#
@@ -197,15 +205,87 @@ echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
 
 # Let's copy the configs.
 
-echo(f"\n{magenta}We will try to import all the configs now. "+
-     f"This is very important so make sure to answer some question.{nocolor}\n")
+echo(f"\n{magenta}I will try to import all the configs now. "+
+     f"This is very important so make sure to answer some question if required.{nocolor}\n")
+
+if not checkUser(): from __init__ import home
 
 run(f'mkdir -p {home}/.{config,cache,local/{bin,share}}')
 
-if hyprlandConfPath.exists():
-    echo(f"\n{red}Hey, hyprland.conf file exists. Do you want to replace it?{nocolor}\n")
-    skip = yon("Yes or No?: ")
-    if skip: hyprlandConfPath.unlink()
+excludedPaths = ['hypr', 'ags', 'fish']
 
+if hyprlandConfPath.exists():
+    echo(f"\n{red}Hey, {hyprlandConfPath} file already exists. Do you want to replace it?\n" +
+         f"(If you installed Hyprland for the first time, then I recommend 'Yes'{nocolor}\n"
+    )
+    skip = yon("Yes or No?: ")
+
+    if skip: 
+        run(f"cp {downloadPath}/.config/hypr/hyprland.conf {hyprlandConfPath}")
+    else:
+        run(f"cp {downloadPath}/.config/hypr/hyprland.conf {hyprlandConfPath}.new")
+else:
+    run(f"cp {downloadPath}/.config/hypr/hyprland.conf {hyprlandConfPath}")
+
+if hyprlandCustomPath.exists():
+    echo(f"\n{red}Hey, {hyprlandCustomPath} folder already exists. Do you want to replace it?\n" )
+    skip = yon("Yes or No?: ")
+
+    if skip:
+        run(f"rsync -av --delete {downloadPath}/.config/hypr/custom/ {hyprlandCustomPath}/")
+else:
+    run(f"rsync -av --delete {downloadPath}/.config/hypr/custom/ {hyprlandCustomPath}/")
+
+if agsUOPath.exists():
+    echo(f"\n{red}Hey, {agsUOPath} file already exists. Do you want to replace it?\n" )
+    skip = yon("Yes or No?: ")
+
+    if skip:
+        run(f"rsync -av --delete {downloadPath}/.config/ags/ {home}/.config/ags/")
+else:
+    run(f"rsync -av --delete {downloadPath}/.config/ags/ {home}/.config/ags/")
+
+if fishyPath.exists():
+    echo(f"\n{red}Hey, something's fishy! Just Kidding. {fishyPath} folder already exists. Do you want to replace it?\n" )
+    skip = yon("Yes or No?: ")
+    
+    if skip:
+        run(f"rsync -av --delete {downloadPath}.config/fish/ {fishyPath}/")
+else:
+    run(f"rsync -av --delete {downloadPath}.config/fish/ {fishyPath}/")
+
+
+for path in (downloadPath.joinpath('.config')).iterdir():
+    if path not in excludedPaths:
+        if path.is_dir(): 
+            run(f"rsync -av --delete {path} {home}/.config/{path.name}")
+        if path.is_file(): 
+            run(f"rsync -av {path} {home}/.config/{path.name}")
+
+
+run(f"rsync -av --delete --exclude '/custom' --exclude '/hyprland.conf' {downloadPath}.config/hypr/ {home}/.config/hypr/")
+
+# Some foldes (eg. .local/bin) should be processed separately to avoid `--delete' for rsync,
+# since the files here come from different places, not only about one program.
+run(f"rsync -av {downloadPath}.local/bin/ {home}/.local/bin/")
+
+# Changing to Dark Mode.
+run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
+
+# Something with zsh that I don't want to complicate.
+run("grep -q 'source ~/.config/zshrc.d/dots-hyprland.zsh' ~/.zshrc")
+
+# Farewell Message
+post_installation = "https://end-4.github.io/dots-hyprland-wiki/en/i-i/01setup/#post-installation"
+
+farewell = f"""
+{green}Hyprland Installed!
+{magenta}See the 'Import Manually' folder and grab anything you need.
+{blue}If you are new to Hyprland, please read {post_installation} for hints on using Hyprland.
+
+{magenta}If you are already running Hyprland,
+Press {green}Ctrl+Super+/{magenta} for a list of keybinds.{nocolor}"""
+
+echo(farewell)
 
 #-----------------------------Script End-----------------------------#

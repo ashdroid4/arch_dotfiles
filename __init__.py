@@ -23,8 +23,10 @@ def echo(arg: str):
 
 
 # This function will determine the input as True or False or YesForAll.
-def yon(arg:str, simple=True) -> bool:
+def yon(arg:str, simple=True, default=False) -> bool:
     response = input(arg)
+
+    if default and response == "": return True
 
     if simple: 
         if "y" in response: return True
@@ -46,27 +48,29 @@ def yon(arg:str, simple=True) -> bool:
         return False
     
 # This function will verify if the user is correct.
-def checkUser(warning=False) -> str:
+def checkUser(warning=False) -> bool:
     global home; global username
     if warning:
         echo(f"\nI found that your username is {green}{username}{nocolor}.\n" + 
              f"Note: It shouldn't be {green}root{nocolor}.\n"
         )
 
-    checkUser =  yon("Is the username correct? Yes or No: ")
+    checkUser =  yon("Is the username correct? Yes or No: ", default=True)
 
     if not checkUser:
         while True:
             username = (input("Please enter your username: ")).strip()
             if username:
-                checkUser =  yon("Is the username correct? Yes or No: ")
+                checkUser =  yon(f"Is the username, '{username}' correct? Yes or No: ", default=True)
                 if checkUser:
                     from __init__ import Path
                     home = Path(f'/home/{username}')
                     hyprlandConfPath = home.joinpath('.config', 'hypr', 'hyprland.conf')
                     break
                 else: print("Everyone makes mistakes.")
-            else: print("The input was empty.")  
+            else: print("The input was empty.")
+        return False
+    return True
 
 
 # Just modifying the subprocess.run() to give desired outputs.
