@@ -279,7 +279,7 @@ for path in (downloadPath.joinpath('.config')).iterdir():
 run(f"rsync -av {downloadPath}/.local/bin/ {home}/.local/bin/")
 
 ## Something with zsh that I don't want to complicate.
-run("grep -q 'source ~/.config/zshrc.d/dots-hyprland.zsh' ~/.zshrc")
+#run("grep -q 'source ~/.config/zshrc.d/dots-hyprland.zsh' ~/.zshrc")
 
 # Changing to Dark Mode.
 run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
