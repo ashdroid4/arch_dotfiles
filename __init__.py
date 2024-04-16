@@ -48,7 +48,7 @@ def yon(arg:str, simple=True, default=False) -> bool:
         return False
     
 # This function will verify if the user is correct.
-def checkUser(warning=False) -> bool:
+def checkUser(warning=False) -> str:
     global home; global username
     if warning:
         echo(f"\nI found that your username is {green}{username}{nocolor}.\n" + 
@@ -69,8 +69,8 @@ def checkUser(warning=False) -> bool:
                     break
                 else: print("Everyone makes mistakes.")
             else: print("The input was empty.")
-        return False
-    return True
+        return home, username
+    return home, username
 
 
 # Just modifying the subprocess.run() to give desired outputs.
