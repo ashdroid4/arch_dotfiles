@@ -79,5 +79,5 @@ if downloadConfirmation:
     print("\nDownloaded!\n\n")
 
 
-import_module(repoName)
+import_module(f"{repoName}.py")
 #-----------------------------Script End-----------------------------#
