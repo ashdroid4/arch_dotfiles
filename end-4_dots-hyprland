@@ -48,7 +48,7 @@ defaultAsk = None
 
 fonts = dict()
 
-green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; magenta = "\033[0;35m"; nocolor = "\e[m"
+green = "\033[0;32m"; red = "\033[31;49;1m"; blue = "\033[0;36m"; magenta = "\033[0;35m"; nocolor = "\e[m"
 #--------------------------------------------------------------------------#
 
 #-------------------------------Functions-------------------------------------#
@@ -261,9 +261,9 @@ if fishyPath.exists():
     skip = yon("Yes or No?: ")
     
     if skip:
-        run(f"rsync -av --delete {downloadPath}.config/fish/ {fishyPath}/")
+        run(f"rsync -av --delete {downloadPath}/.config/fish/ {fishyPath}/")
 else:
-    run(f"rsync -av --delete {downloadPath}.config/fish/ {fishyPath}/")
+    run(f"rsync -av --delete {downloadPath}/.config/fish/ {fishyPath}/")
 
 
 for path in (downloadPath.joinpath('.config')).iterdir():
