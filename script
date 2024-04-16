@@ -78,6 +78,7 @@ if downloadConfirmation:
     system(script)
     print("\nDownloaded!\n\n")
 
+dotPath = str(dotPath).replace("/", ".")
 
 import_module(f"{dotPath}/{repoName}.py")
 #-----------------------------Script End-----------------------------#
