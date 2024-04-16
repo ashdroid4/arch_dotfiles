@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, home, run, yon, chaoticAUR, checkUser, dotPath
+from __init__ import echo, home, run, username, yon, chaoticAUR, checkUser, dotPath
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -101,7 +101,7 @@ echo(f"{green}\nThe depenedencies have been installed!{nocolor}\n")
 # Let's add user to video and input groups.
 
 temp = "you could try `sudo usermod -aG video, input 'YourUsernameHere'`"
-run(f'sudo usermod -aG video,input {home.name}', possible_warning=temp); del temp
+run(f'sudo usermod -aG video,input {username}', possible_warning=temp); del temp
 
 # Let's install fonts.
 
