@@ -4,7 +4,7 @@
 check_not_sudo() {
     if [[ $EUID -eq 0 ]]; then
         echo "This script should not be run with sudo."
-        return 1
+        exit 1
     fi
 }
 
