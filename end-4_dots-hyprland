@@ -91,7 +91,7 @@ dependencies = [pacman_dependencies[value] for value in pacman_dependencies]
 dependencies = "".join(deps for deps in dependencies)
 
 echo(f"\n\n{blue}Installing Dependencies...")
-echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}\n")
+echo(f"(you can edit the dependencies as you want in the {downloadPath}/end-4_dots-hyprland){nocolor}\n")
 
 
 run(f"pacman -S --needed {dependencies}")
@@ -101,7 +101,7 @@ echo(f"{green}\nThe depenedencies have been installed!{nocolor}\n")
 # Let's add user to video and input groups.
 
 temp = "you could try `sudo usermod -aG video, input 'YourUsernameHere'`"
-run('sudo usermod -aG video,input "$(whoami)"', possible_warning=temp); del temp
+run(f'sudo usermod -aG video,input {home.name}', possible_warning=temp); del temp
 
 # Let's install fonts.
 
@@ -208,7 +208,7 @@ echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
 echo(f"\n{magenta}I will try to import all the configs now. "+
      f"This is very important so make sure to answer some question if required.{nocolor}\n")
 
-if not checkUser(): from __init__ import home
+if not checkUser(warning=True): from __init__ import home
 
 ## In case some folders does not exists
 directories = [

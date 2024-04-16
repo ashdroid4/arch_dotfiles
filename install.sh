@@ -1,4 +1,4 @@
-# Hey, welcome! This is the start-point of arch_dotfiles
+## Hey, welcome! This is the start-point of arch_dotfiles
 
 ## Checking if the user is sudo. We don't want this script to be run with sudo.
 check_not_sudo() {
@@ -17,4 +17,4 @@ export username=$(whoami)
 sudo pacman -S --needed python3 git
 
 ## Starting the main script.
-python3 script
+python3 ./script
