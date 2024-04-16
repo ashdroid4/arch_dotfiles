@@ -89,6 +89,8 @@ def run(arg:str, possible_warning=""):
         warning = f"But maybe... {possible_warning}. "
         proceed = proceed.replace("#", warning) if possible_warning else proceed.replace("#", possible_warning)
 
+        proceed = yon(proceed)
+
         if not proceed: 
             print("Okay, aborted!")
             exit()
