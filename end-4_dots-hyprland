@@ -210,7 +210,15 @@ echo(f"\n{magenta}I will try to import all the configs now. "+
 
 if not checkUser(): from __init__ import home
 
-run(f'mkdir -p {home}/.{config,cache,local/{bin,share}}')
+## In case some folders does not exists
+directories = [
+    f"{home}/.config",
+    f"{home}/.cache",
+    f"{home}/.local/bin",
+    f"{home}/.local/share"
+]
+for directory in directories:
+    run(f"mkdir -p {directory}")
 
 excludedPaths = ['hypr', 'ags', 'fish']
 
@@ -265,15 +273,15 @@ for path in (downloadPath.joinpath('.config')).iterdir():
 
 run(f"rsync -av --delete --exclude '/custom' --exclude '/hyprland.conf' {downloadPath}.config/hypr/ {home}/.config/hypr/")
 
-# Some foldes (eg. .local/bin) should be processed separately to avoid `--delete' for rsync,
-# since the files here come from different places, not only about one program.
+## Some foldes (eg. .local/bin) should be processed separately to avoid `--delete' for rsync,
+## since the files here come from different places, not only about one program.
 run(f"rsync -av {downloadPath}.local/bin/ {home}/.local/bin/")
+
+## Something with zsh that I don't want to complicate.
+run("grep -q 'source ~/.config/zshrc.d/dots-hyprland.zsh' ~/.zshrc")
 
 # Changing to Dark Mode.
 run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
-
-# Something with zsh that I don't want to complicate.
-run("grep -q 'source ~/.config/zshrc.d/dots-hyprland.zsh' ~/.zshrc")
 
 # Farewell Message
 post_installation = "https://end-4.github.io/dots-hyprland-wiki/en/i-i/01setup/#post-installation"

@@ -61,7 +61,7 @@ def checkUser(warning=False) -> bool:
         while True:
             username = (input("Please enter your username: ")).strip()
             if username:
-                checkUser =  yon(f"Is the username, '{username}' correct? Yes or No: ", default=True)
+                checkUser =  yon(f"Is the username, '{username}', correct? Yes or No: ", default=True)
                 if checkUser:
                     from __init__ import Path
                     home = Path(f'/home/{username}')
