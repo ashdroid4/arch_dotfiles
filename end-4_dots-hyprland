@@ -223,7 +223,7 @@ for directory in directories:
 
 excludedPaths = ['hypr', 'ags', 'fish']
 
-run(f"rsync -av --delete --exclude '/custom' --exclude '/hyprland.conf' {downloadPath}.config/hypr/ {home}/.config/hypr/")
+run(f"rsync -av --delete --exclude '/custom' --exclude '/hyprland.conf' {downloadPath}/.config/hypr/ {home}/.config/hypr/")
 
 if hyprlandConfPath.exists():
     echo(f"\n{red}Hey, {hyprlandConfPath} file already exists. Do you want to replace it?\n" +
