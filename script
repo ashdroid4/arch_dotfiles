@@ -6,6 +6,7 @@ You can use it too. I have added a few dotfiles, you can choose any."""
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
 from os import system
+from importlib import import_module
 from __init__ import echo, run, yon, dotPath
 #-----------------------------------------------------------------------------#
 
@@ -77,9 +78,6 @@ if downloadConfirmation:
     system(script)
     print("\nDownloaded!\n\n")
 
-script = f"""
-sudo python3 {dotPath}/{repoName}"""
 
-system(script)
-
+import_module(repoName)
 #-----------------------------Script End-----------------------------#
