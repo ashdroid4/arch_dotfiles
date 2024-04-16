@@ -78,7 +78,7 @@ if downloadConfirmation:
     print("\nDownloaded!\n\n")
 
 script = f"""
-sudo python3 {dotPath}{repoName}"""
+sudo python3 {dotPath}/{repoName}"""
 
 system(script)
 
