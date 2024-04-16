@@ -69,8 +69,10 @@ def checkUser(warning=False, boolean=True) -> str:
                     break
                 else: print("Everyone makes mistakes.")
             else: print("The input was empty.")
-        return home, username if not boolean else return False
-    return home, username if not boolean else return True
+        if boolean: return home, username, False
+    if booloan: return home, username, True
+
+    return home, username
 
 
 # Just modifying the subprocess.run() to give desired outputs.
