@@ -44,7 +44,7 @@ fishyPath = home.joinpath('.config', 'fish')
 hyprlandConfPath = home.joinpath('.config', 'hypr', 'hyprland.conf')
 hyprlandCustomPath = home.joinpath('.config', 'hypr', 'custom')
 
-""" """"
+""" """
 
 green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; magenta = "\033[0;35m"; nocolor = "\e[m"
 #--------------------------------------------------------------------------#
