@@ -70,7 +70,7 @@ def checkUser(warning=False, boolean=False) -> str:
                 else: print("Everyone makes mistakes.")
             else: print("The input was empty.")
         if boolean: return home, username, False
-    if booloan: return home, username, True
+    if boolean: return home, username, True
 
     return home, username
 
