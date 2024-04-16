@@ -234,7 +234,7 @@ if hyprlandConfPath.exists():
     else:
         run(f"cp {downloadPath}/.config/hypr/hyprland.conf {hyprlandConfPath}.new")
 else:
-    run(f"cp {downloadPath}/.config/hypr/hyprland.conf {hyprlandConfPath}")
+    run(f"cp {downloadPath}/.config/hypr/hyprland.conf {hyprlandConfPath.parent}/")
 
 if hyprlandCustomPath.exists():
     echo(f"\n{red}Hey, {hyprlandCustomPath} folder already exists. Do you want to replace it?\n" )
