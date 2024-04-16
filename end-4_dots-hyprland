@@ -276,7 +276,7 @@ for path in (downloadPath.joinpath('.config')).iterdir():
 
 ## Some foldes (eg. .local/bin) should be processed separately to avoid `--delete' for rsync,
 ## since the files here come from different places, not only about one program.
-run(f"rsync -av {downloadPath}.local/bin/ {home}/.local/bin/")
+run(f"rsync -av {downloadPath}/.local/bin/ {home}/.local/bin/")
 
 ## Something with zsh that I don't want to complicate.
 run("grep -q 'source ~/.config/zshrc.d/dots-hyprland.zsh' ~/.zshrc")
