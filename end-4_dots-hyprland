@@ -113,8 +113,8 @@ echo(f"\n\n{blue}We will try to install some fonts now.{nocolor}\n\n") # P.S: I 
 """Rubik"""
 
 script = f"""
-mkdir -p $base/cache/Rubik
-cd $base/cache/Rubik
+mkdir -p {home}/cache/Rubik
+cd {home}/cache/Rubik
 git init -b main
 git remote add origin https://github.com/googlefonts/rubik.git
 git pull origin main && git submodule update --init --recursive
@@ -124,15 +124,15 @@ mkdir -p /usr/local/share/licenses/ttf-rubik/
 cp OFL.txt /usr/local/share/licenses/ttf-rubik/LICENSE
 fc-cache -fv
 gsettings set org.gnome.desktop.interface font-name 'Rubik 11'
-cd {dotPath}"""
+cd {home}"""
 
 fonts.update({"Rubik": script})
 
 """Gabarito"""
 
 script = f"""
-mkdir -p $base/cache/Gabarito
-cd $base/cache/Gabarito
+mkdir -p {home}/cache/Gabarito
+cd {home}/cache/Gabarito
 git init -b main
 git remote add origin https://github.com/naipefoundry/gabarito.git
 git pull origin main && git submodule update --init --recursive
@@ -141,15 +141,15 @@ cp fonts/ttf/Gabarito*.ttf /usr/local/share/fonts/TTF/
 mkdir -p /usr/local/share/licenses/ttf-gabarito/
 cp OFL.txt /usr/local/share/licenses/ttf-gabarito/LICENSE
 fc-cache -fv
-cd {dotPath}"""
+cd {home}"""
 
 fonts.update({"Gabarito": script})
 
 """One-UI"""
 
 script = f"""
-mkdir -p $base/cache/OneUI4-Icons
-cd $base/cache/OneUI4-Icons
+mkdir -p {home}/cache/OneUI4-Icons
+cd {home}/cache/OneUI4-Icons
 git init -b main
 git remote add origin https://github.com/end-4/OneUI4-Icons.git
 git pull origin main && git submodule update --init --recursive
@@ -157,30 +157,30 @@ mkdir -p /usr/local/share/icons
 cp -r OneUI /usr/local/share/icons
 cp -r OneUI-dark /usr/local/share/icons
 cp -r OneUI-light /usr/local/share/icons
-cd {dotPath}"""
+cd {home}"""
 
 fonts.update({"One-UI": script})
 
 """Bibata"""
 
 script = f"""
-mkdir -p $base/cache/bibata-cursor
-cd $base/cache/bibata-cursor
+mkdir -p {home}/cache/bibata-cursor
+cd {home}/cache/bibata-cursor
 name="Bibata-Modern-Classic"
 file="$name.tar.xz"
 axel https://github.com/ful1e5/Bibata_Cursor/releases/latest/download/$file
 tar -xf $file
 mkdir -p /usr/local/share/icons
 cp -r $name /usr/local/share/icons
-cd {dotPath}"""
+cd {home}"""
 
 fonts.update({"Bibata": script})
 
 """MicroTex"""
 
 script = f"""
-mkdir -p $base/cache/MicroTeX
-cd $base/cache/MicroTeX
+mkdir -p {home}/cache/MicroTeX
+cd {home}/cache/MicroTeX
 git init -b master
 git remote add origin https://github.com/NanoMichael/MicroTeX.git
 git pull origin master && git submodule update --init --recursive
@@ -190,7 +190,7 @@ cmake ..
 make -j32
 mkdir -p /usr/local/bin
 cp ./LaTeX /usr/local/bin/
-cd {dotPath}"""
+cd {home}"""
 
 fonts.update({"MicroTex": script})
 
