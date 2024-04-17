@@ -78,6 +78,6 @@ if downloadConfirmation:
     print("\nDownloaded!\n\n")
 
 run(f"sudo -E python3 {repoName}",
-possible_warning = "It was caused by the '-E' argument of sudo. Remove that.")
+possible_warning = "It was caused by the '-E' option of sudo. Try removing that.")
 
 #-----------------------------Script End-----------------------------#
