@@ -32,7 +32,7 @@ pacman_dependencies = { # P.S: You can edit these dependencies according to your
 
 }
 
-home, username = checkUser(warning=True)
+home, username = checkUser()
 
 """ Paths """
 
@@ -56,17 +56,17 @@ def askInstall(module):
     echo(f"\n{green}I want to install {module}. If you have {module} installed you should skip now.{nocolor}\n")
 
     ask = yon(
-        "\nDo you want to...\nInstall(i)\nInstall For All(iall)\nSkip(s)\nSkip For All(sall)\nMake the wise choice: "
+        "\nDo you want to...\nInstall(i)\nInstall For All(iall)\nSkip(s)\nSkip For All(sall)\nMake the wise choice: ",
+        simple=False
         )
     
-    try: return bool(ask)
-    except:
-        if ask == "iall":
-            defaultAsk == True
-            return True
-        if ask == "sall":
-            defaultAsk == False
-            return False
+    if type(ask) == bool: return ask
+    elif ask == "iall":
+        defaultAsk == True
+        return True
+    elif ask == "sall":
+        defaultAsk == False
+        return False
 
 #-----------------------------------------------------------------------------#
 
@@ -96,14 +96,14 @@ echo(f"\n\n{blue}Installing Dependencies...")
 echo(f"(you can edit the dependencies as you want in the {downloadPath}/end-4_dots-hyprland){nocolor}\n")
 
 
-run(f"pacman -S --needed {dependencies}")
+run(f"pacman -S --needed {dependencies}", sudo=True)
 
 echo(f"{green}\nThe depenedencies have been installed!{nocolor}\n")
 
 # Let's add user to video and input groups.
 
 temp = "you could try `sudo usermod -aG video, input 'YourUsernameHere'`"
-run(f'sudo usermod -aG video,input {username}', possible_warning=temp); del temp
+run(f'usermod -aG video,input {username}', possible_warning=temp, sudo=True); del temp
 
 # Let's install fonts.
 
@@ -196,11 +196,11 @@ fonts.update({"MicroTex": script})
 for font in fonts:
     script = fonts[font]
 
-    if defaultAsk is not None: 
+    if defaultAsk is None: 
         ask = askInstall(font)
     else: ask = defaultAsk
 
-    if ask: run(script)
+    if ask: run(script, sudo=True)
 
 echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
 
@@ -219,7 +219,7 @@ directories = [
     f"{home}/.local/share"
 ]
 for directory in directories:
-    run(f"mkdir -p {directory}")
+    run(f"mkdir -p {directory}", sudo=False)
 
 excludedPaths = ['hypr', 'ags', 'fish']
 

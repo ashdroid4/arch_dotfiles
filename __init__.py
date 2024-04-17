@@ -48,7 +48,7 @@ def yon(arg:str, simple=True, default=False) -> bool:
         return False
     
 # This function will verify if the user is correct.
-def checkUser(warning=False, boolean=False) -> str:
+def checkUser(warning=True, boolean=False) -> str:
     global home; global username
     if warning:
         echo(f"\nI found that your username is {green}{username}{nocolor}.\n" + 
@@ -76,7 +76,11 @@ def checkUser(warning=False, boolean=False) -> str:
 
 
 # Just modifying the subprocess.run() to give desired outputs.
-def run(arg:str, possible_warning=""):
+def run(arg:str, possible_warning="", sudo=False):
+    enterSudo = "sudo -s \n"
+
+    if sudo: arg = enterSudo + arg
+
     try: 
         print(f"\n\nExecuting [{arg}]\n")
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
@@ -123,7 +127,7 @@ def chaoticAUR():
 
     if not ChaoticAUR: exit()
 
-    run(chaoticScript)
+    run(chaoticScript, sudo=True)
     with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
 
     system("pacman -Sy")
