@@ -77,7 +77,7 @@ def checkUser(warning=True, boolean=False) -> str:
 
 # Just modifying the subprocess.run() to give desired outputs.
 def run(arg:str, possible_warning="", sudo=False):
-    enterSudo = "sudo -s \n"
+    enterSudo = "sudo -s &&/\n"
 
     if sudo: arg = enterSudo + arg
 
