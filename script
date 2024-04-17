@@ -5,7 +5,7 @@ You can use it too. I have added a few dotfiles, you can choose any."""
 
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
-from os import system
+from os import getenv, system
 from __init__ import echo, run, yon
 #-----------------------------------------------------------------------------#
 
@@ -15,6 +15,8 @@ repoList = {
 "linuxmobile_hyprland-dots": "https://github.com/linuxmobile/hyprland-dots",
 "end-4_dots-hyprland": "https://github.com/end-4/dots-hyprland"
 }
+
+username = getenv("username")
 
 green = "\033[0;32m"; magenta = "\033[0;35m"; blue = "\033[0;36m"; nocolor = "\e[m"
 #--------------------------------------------------------------------------#
@@ -78,6 +80,7 @@ if downloadConfirmation:
     print("\nDownloaded!\n\n")
 
 script = f"""
+export $username={username}
 sudo python3 {repoName}"""
 
 system(script)
