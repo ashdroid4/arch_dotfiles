@@ -44,7 +44,7 @@ hyprlandCustomPath = home.joinpath('.config', 'hypr', 'custom')
 
 """ """
 
-defaultAsk = None
+defaultAsk = list()
 
 fonts = dict()
 
@@ -53,6 +53,7 @@ green = "\033[0;32m"; red = "\033[31;49;1m"; blue = "\033[0;36m"; magenta = "\03
 
 #-------------------------------Functions-------------------------------------#
 def askInstall(module):
+
     echo(f"\n{green}I want to install {module}. If you have {module} installed you should skip now.{nocolor}\n")
 
     ask = yon(
@@ -62,10 +63,10 @@ def askInstall(module):
     
     if type(ask) == bool: return ask
     elif ask == "iall":
-        defaultAsk == True
+        defaultAsk.append(True)
         return True
     elif ask == "sall":
-        defaultAsk == False
+        defaultAsk.append(False)
         return False
 
 #-----------------------------------------------------------------------------#
@@ -196,9 +197,8 @@ fonts.update({"MicroTex": script})
 for font in fonts:
     script = fonts[font]
 
-    if defaultAsk is None: 
-        ask = askInstall(font)
-    else: ask = defaultAsk
+    if not defaultAsk: ask = askInstall(font)
+    else: ask = defaultAsk[0]
 
     if ask: run(script)
 
