@@ -289,7 +289,7 @@ post_installation = "https://end-4.github.io/dots-hyprland-wiki/en/i-i/01setup/#
 
 farewell = f"""
 {green}Hyprland Installed!
-{magenta}See the 'Import Manually' folder and grab anything you need.
+{magenta}See the '{downloadPath}/Import Manually' folder and grab anything you need.
 {blue}If you are new to Hyprland, please read {post_installation} for hints on using Hyprland.
 
 {magenta}If you are already running Hyprland,
