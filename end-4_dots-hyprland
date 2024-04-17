@@ -96,14 +96,14 @@ echo(f"\n\n{blue}Installing Dependencies...")
 echo(f"(you can edit the dependencies as you want in the {downloadPath}/end-4_dots-hyprland){nocolor}\n")
 
 
-run(f"pacman -S --needed {dependencies}", sudo=True)
+run(f"pacman -S --needed {dependencies}")
 
 echo(f"{green}\nThe depenedencies have been installed!{nocolor}\n")
 
 # Let's add user to video and input groups.
 
 temp = "you could try `sudo usermod -aG video, input 'YourUsernameHere'`"
-run(f'usermod -aG video,input {username}', possible_warning=temp, sudo=True); del temp
+run(f'usermod -aG video,input {username}', possible_warning=temp); del temp
 
 # Let's install fonts.
 
@@ -200,7 +200,7 @@ for font in fonts:
         ask = askInstall(font)
     else: ask = defaultAsk
 
-    if ask: run(script, sudo=True)
+    if ask: run(script)
 
 echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
 
@@ -219,7 +219,7 @@ directories = [
     f"{home}/.local/share"
 ]
 for directory in directories:
-    run(f"mkdir -p {directory}", sudo=False)
+    run(f"mkdir -p {directory}")
 
 excludedPaths = ['hypr', 'ags', 'fish']
 

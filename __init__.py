@@ -76,9 +76,7 @@ def checkUser(warning=True, boolean=False) -> str:
 
 
 # Just modifying the subprocess.run() to give desired outputs.
-def run(arg:str, possible_warning="", sudo=False):
-    if sudo: arg = "sudo " + arg
-
+def run(arg:str, possible_warning=""):
     try: 
         print(f"\n\nExecuting [{arg}]\n")
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
@@ -125,7 +123,7 @@ def chaoticAUR():
 
     if not ChaoticAUR: exit()
 
-    run(chaoticScript, sudo=True)
+    run(chaoticScript)
     with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
 
     system("pacman -Sy")
