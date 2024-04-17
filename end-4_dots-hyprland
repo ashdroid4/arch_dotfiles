@@ -9,26 +9,26 @@ from __init__ import echo, run, yon, chaoticAUR, checkUser, dotPath
 #-------------------------------CONSTANTS----------------------------------#
 pacman_dependencies = { # P.S: You can edit these dependencies according to your wish, but everything might not work.
 
-"basic": "coreutils cliphist cmake curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs pkg-config dart-sass axel make ",
+"basic": " coreutils cliphist cmake curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs pkg-config dart-sass axel make",
 
-"microtex": "tinyxml2 gtkmm3 gtksourceviewmm cairomm ",
+"microtex": " tinyxml2 gtkmm3 gtksourceviewmm cairomm gcc",
 
-"python": "python-build python-pillow python-pywal python-setuptools-scm python-wheel ",
+"python": " python-build python-pillow python-pywal python-setuptools-scm python-wheel",
 
-"graphics": "hyprland-git xorg-xrandr xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git ",
+"graphics": " hyprland-git xorg-xrandr xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-hyprland-git",
 
-"player": "pavucontrol wireplumber libdbusmenu-gtk3 playerctl swww ",
+"player": " pavucontrol wireplumber libdbusmenu-gtk3 playerctl swww",
 
-"gtk": "webp-pixbuf-loader gtk-layer-shell gtk3 gtksourceview3 gobject-introspection upower yad ydotool aylurs-gtk-shell ",
+"gtk": " webp-pixbuf-loader gtk-layer-shell gtk3 gtksourceview3 gobject-introspection upower yad ydotool aylurs-gtk-shell",
 
-"gnome": "polkit-gnome gnome-keyring gnome-control-center blueberry networkmanager brightnessctl wlsunset gnome-bluetooth-3.0 ",
+"gnome": " polkit-gnome gnome-keyring gnome-control-center blueberry networkmanager brightnessctl wlsunset gnome-bluetooth-3.0",
 
-"widgets": "python-pywayland python-psutil hypridle-git hyprlock-git wlogout wl-clipboard hyprpicker-git anyrun-git plasma-browser-integration ",
+"widgets": " python-pywayland python-psutil hypridle-git hyprlock-git wlogout wl-clipboard hyprpicker-git anyrun-git plasma-browser-integration",
 
-"font": "adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
-"ttf-material-symbols-variable-git ttf-space-mono-nerd fish foot starship ",
+"font": " adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
+"ttf-material-symbols-variable-git ttf-space-mono-nerd fish foot starship",
 
-"recorder": "swappy wf-recorder grim tesseract tesseract-data-eng slurp "
+"recorder": " swappy wf-recorder grim tesseract tesseract-data-eng slurp"
 
 }
 

@@ -16,5 +16,12 @@ export username=$(whoami)
 ## Installing some basic dependencies.
 sudo pacman -S --needed python3 git
 
+## Getting the directory where this file is located.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+## Changing to the directory where the file resides.
+cd "$DIR"
+
+
 ## Starting the main script.
-python3 ./script
+python3 script

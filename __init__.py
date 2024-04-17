@@ -35,13 +35,13 @@ def yon(arg:str, simple=True, default=False) -> bool:
             print("Couldn't understand, so assuming No.")
             return False
 
-    if "install" or "i" in response: return True
-
-    elif response == "skip" or response == "s": return False
-
-    elif "iall" in response: return "iall"
+    if "iall" in response: return "iall"
 
     elif "sall" in response: return "sall"
+
+    elif "skip" or "s" in response: return False
+
+    elif "install" or "i" in response: return True
 
     else:
         print("Couldn't understand, so assuming No.")
