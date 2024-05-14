@@ -269,9 +269,9 @@ else:
 for path in (downloadPath.joinpath('.config')).iterdir():
     if path not in excludedPaths:
         if path.is_dir(): 
-            run(f"rsync -av {path} {home}/.config/{path.name}")
+            run(f"rsync -av {path}/ {home}/.config/{path.name}")
         if path.is_file(): 
-            run(f"rsync -av {path} {home}/.config/{path.name}")
+            run(f"rsync -av {path}/ {home}/.config/{path.name}")
 
 
 ## Some foldes (eg. .local/bin) should be processed separately to avoid `--delete' for rsync,
