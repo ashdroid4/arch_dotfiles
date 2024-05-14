@@ -26,7 +26,7 @@ pacman_dependencies = { # P.S: You can edit these dependencies according to your
 "widgets": " python-pywayland python-psutil hypridle-git hyprlock-git wlogout wl-clipboard hyprpicker-git anyrun-git plasma-browser-integration",
 
 "font": " adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
-"ttf-material-symbols-variable-git ttf-space-mono-nerd fish foot starship",
+"ttf-material-symbols-variable-git ttf-space-mono-nerd fish foot starship python-materialyoucolor-git",
 
 "recorder": " swappy wf-recorder grim tesseract tesseract-data-eng slurp"
 
