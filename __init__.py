@@ -52,7 +52,7 @@ def checkUser(warning=True, boolean=False) -> str:
     global home; global username
     if warning:
         echo(f"\nI found that your username is {green}{username}{nocolor}.\n" + 
-             f"Note: It shouldn't be {green}root{nocolor}.\n"
+             f"Note: It shouldn't be {red}root{nocolor}.\n"
         )
 
     checkUser =  yon("Is the username correct? Yes or No(default=Yes): ", default=True)
