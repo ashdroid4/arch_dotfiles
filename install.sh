@@ -1,4 +1,4 @@
-## Hey, welcome! This is the start-point of arch_dotfiles
+## Hey, welcome! This is the start point of arch_dotfiles.
 
 ## Checking if the user is sudo. We don't want this script to be run with sudo.
 check_not_sudo() {
@@ -21,7 +21,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 ## Changing to the directory where the file resides.
 cd "$DIR"
-
 
 ## Starting the main script.
 python3 script

@@ -21,7 +21,7 @@ pacman_dependencies = (
 "pipewire pipewire-alsa pipewire-audio pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire pavucontrol"
 )
 
-green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\e[m"
+green = "\033[0;32m"; red = "\033[0;31m"; blue = "\033[0;36m"; nocolor = "\\e[m"
 #--------------------------------------------------------------------------#
 
 #-----------------------------Script Start---------------------------#
