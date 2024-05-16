@@ -291,7 +291,7 @@ brave = installPackage("brave")
 if brave: 
     with open(f"{home}/.config/hypr/custom/keybinds.conf", "r+") as keybind:
         keybind = keybind.read()
-        if not "brave" on keybind:
+        if not "brave" in keybind:
             keybind += "bind = Super+Alt, W, exec, brave"
     echo(f"Brave is installed. The key for Brave is {green}Super + Alt + W{nocolor}\n")
 ##
