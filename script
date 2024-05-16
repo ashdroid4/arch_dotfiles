@@ -69,7 +69,7 @@ downloadConfirmation = yon(f"\nSo, if this is the fist time or you want to updat
 
 if not downloadConfirmation: 
     if not downloadPath.exists():
-        print(f"Look, I can't find {repoName} in {downloadPath}.")
+        print(f"\nLook, I can't find {repoName} in {downloadPath}.")
         print("Setup will not proceed if you do not download.")
         downloadConfirmation = yon("Do you want to download? Yes or No: ")
         if not downloadConfirmation: exit()
