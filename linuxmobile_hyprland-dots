@@ -10,18 +10,18 @@ from __init__ import echo, run, yon, home, chaoticAUR
 
 #-------------------------------CONSTANTS----------------------------------#
 pacman_dependencies = { # P.S: You can edit these dependencies according to your wish, but everything might not work.
-    "hyprland_stuff": " hyprland-git hyprpicker-git waybar-git dunst nwg-look wf-recorder wlogout wlsunset"
+    "hyprland_stuff": " hyprland-git hyprpicker-git waybar-git dunst nwg-look wf-recorder wlogout wlsunset",
 
-    "cli tools": " btop cava neofetch noise-suppression-for-voice rofi-lbonn-wayland-git rofi-emoji starship zsh viewnior ocs-url"
+    "cli tools": " btop cava neofetch noise-suppression-for-voice rofi-lbonn-wayland-git rofi-emoji starship zsh viewnior ocs-url",
 
-    "browser": " brave-bin file-roller noto-fonts noto-fonts-cjk noto-fonts-emoji thunar thunar-archive-plugin"
+    "browser": " brave-bin file-roller noto-fonts noto-fonts-cjk noto-fonts-emoji thunar thunar-archive-plugin",
 
     "vscode": " code code-buildx"
 
-    "themes": " catppuccin-gtk-theme-macchiato catppuccin-gtk-theme-mocha papirus-icon-theme sddm-git swaylock-effects-git kvantum kvantum-theme-catppuccin-git"
+    "themes": " catppuccin-gtk-theme-macchiato catppuccin-gtk-theme-mocha papirus-icon-theme sddm-git swaylock-effects-git kvantum kvantum-theme-catppuccin-git",
 
     "pipeware and obs": " obs-studio-rc ffmpeg-obs cef-minimal-obs-rc-bin pipewire pipewire-alsa "
-    "pipewire-audio pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire pavucontrol"
+    "pipewire-audio pipewire-pulse pipewire-jack wireplumber gst-plugin-pipewire pavucontrol",
 
     "dependencies": " colord ffmpegthumbnailer gnome-keyring grimblast-git gtk-engine-murrine imagemagick kvantum pamixer playerctl "
     "polkit-kde-agent qt5-quickcontrols qt5-quickcontrols2 qt5-wayland qt6-wayland swww ttf-font-awesome tumbler ttf-jetbrains-mono ttf-icomoon-feather "
