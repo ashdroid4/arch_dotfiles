@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, run, yon, chaoticAUR, checkUser
+from __init__ import echo, foo, run, yon, chaoticAUR, checkUser
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -269,7 +269,7 @@ else:
 for path in (downloadPath.joinpath('.config')).iterdir():
     if path not in excludedPaths:
         if path.is_dir(): 
-            run(f"rsync -av {path}/ {home}/.config/{path.name}/")
+            run(f"rsync -av {path}/ {home}/.config/{path.name}/") # --delete ??
         if path.is_file(): 
             run(f"rsync -av {path} {home}/.config/")
 
@@ -284,6 +284,32 @@ run(f"rsync -av {downloadPath}/.local/bin/ {home}/.local/bin/")
 # Changing to Dark Mode.
 run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 
+## Optional stuff.
+
+# Install brave...
+with open(f"{home}/cache/brave"): 
+    brave = brave.read()
+    if "NO" in brave: brave = False
+
+try: 
+    foo("pacman -Qi {}".format(package_name), check=True, shell=True, capture_output=True)
+    brave = False
+except: 
+    brave = True
+
+if brave:
+    brave = yon("\n\nDo you want to install brave?\nYes or No: ")
+    if brave:
+        run("pacman -S brave")
+        with open(f"{home}/.config/hypr/custom/keybinds.conf", "r+") as keybind:
+            keybind = keybind.read()
+            if not "brave" on keybind:
+                keybind += "bind = Super+Shift, W, exec, brave"
+        print("\nDone! Brave is installed. The key for brave is Super + Shift + W\n")
+    else:
+        with open(f"{home}/cache/brave", "w") as brave: brave.write("NO")
+        
+
 # Farewell Message
 post_installation = "https://end-4.github.io/dots-hyprland-wiki/en/i-i/01setup/#post-installation"
 
@@ -293,7 +319,7 @@ farewell = f"""
 {blue}If you are new to Hyprland, please read {post_installation} for hints on using Hyprland.
 
 {magenta}If you are already running Hyprland,
-Press {green}Ctrl+Super+/{magenta} for a list of keybinds.{nocolor}"""
+Press {green}Ctrl + /{magenta} for a list of keybinds.{nocolor}"""
 
 echo(farewell)
 
