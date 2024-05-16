@@ -55,7 +55,7 @@ echo(f"\n\n{blue}Installing Dependencies...")
 echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobile_hyprland-dots){nocolor}\n")
 
 pacman_dependencies = [pacman_dependencies[value] for value in pacman_dependencies]
-pacman_dependencies = "".join(deps for deps in dependencies)
+pacman_dependencies = "".join(deps for deps in pacman_dependencies)
 
 run(f"pacman -S --needed {pacman_dependencies}")
 # Let's configure the dotfiles.
