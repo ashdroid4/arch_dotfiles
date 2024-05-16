@@ -128,4 +128,28 @@ def chaoticAUR():
 
     system("pacman -Sy")
 
+def installPackage(package_name:str, cache=True) -> bool:
+    if cache:
+        with open(f"{home}/cache/{package_name}"): 
+            package = package.read()
+            if "NO" in package: return False
+
+    try: 
+        foo("pacman -Qi {}".format(package_name), check=True, shell=True, capture_output=True)
+        package = False
+    except: 
+        package = True
+
+    if not package: return False
+
+    package = yon(f"\n\nDo you want to install {package_name}?\nYes or No: ")
+    if package:
+        run(f"pacman -S {package_name}")
+        return True
+    else:
+        if cache:
+            print(f"Alright. Skipping {package_name}. Won't ask you again.")
+            with open(f"{home}/cache/{package_name}", "w") as package: package.write("NO")
+
+
 #-----------------------------------------------------------------------------#

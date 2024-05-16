@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, foo, run, yon, chaoticAUR, checkUser
+from __init__ import echo, run, yon, chaoticAUR, checkUser, installPackage
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -284,31 +284,17 @@ run(f"rsync -av {downloadPath}/.local/bin/ {home}/.local/bin/")
 # Changing to Dark Mode.
 run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 
-## Optional stuff.
+# Optional Stuff
 
-# Install brave...
-with open(f"{home}/cache/brave"): 
-    brave = brave.read()
-    if "NO" in brave: brave = False
-
-try: 
-    foo("pacman -Qi {}".format(package_name), check=True, shell=True, capture_output=True)
-    brave = False
-except: 
-    brave = True
-
-if brave:
-    brave = yon("\n\nDo you want to install brave?\nYes or No: ")
-    if brave:
-        run("pacman -S brave")
-        with open(f"{home}/.config/hypr/custom/keybinds.conf", "r+") as keybind:
-            keybind = keybind.read()
-            if not "brave" on keybind:
-                keybind += "bind = Super+Shift, W, exec, brave"
-        print("\nDone! Brave is installed. The key for brave is Super + Shift + W\n")
-    else:
-        with open(f"{home}/cache/brave", "w") as brave: brave.write("NO")
-        
+## Install Brave
+brave = installPackage("brave")
+if brave: 
+    with open(f"{home}/.config/hypr/custom/keybinds.conf", "r+") as keybind:
+        keybind = keybind.read()
+        if not "brave" on keybind:
+            keybind += "bind = Super+Alt, W, exec, brave"
+    echo(f"Brave is installed. The key for Brave is {green}Super + Alt + W{nocolor}\n")
+##
 
 # Farewell Message
 post_installation = "https://end-4.github.io/dots-hyprland-wiki/en/i-i/01setup/#post-installation"

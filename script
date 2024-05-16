@@ -6,7 +6,7 @@ You can use it too. I have added a few dotfiles, you can choose any."""
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
 from os import system
-from __init__ import echo, yon
+from __init__ import echo, yon, home, Path
 #-----------------------------------------------------------------------------#
 
 
@@ -61,12 +61,21 @@ def repoChoose():
 
 repoName, repo = repoChoose()
 
-downloadConfirmation = yon(f"\nSo, gotta download {repoName}. Do you want to download?\n"
+downloadPath = Path(f"{home}/Downloads/{repoName}")
+
+downloadConfirmation = yon(f"\nSo, if this is the fist time or you want to update, you gotta download {repoName}. "
+                            "Otherwise skip.\nDo you want to download? "
                             "Yes or No: ")
 
 if not downloadConfirmation: 
-    proceed = yon("\nDo you want to continue?\nYes or No: ")
-    if not proceed: exit()
+    if not downloadPath.exists():
+        print(f"Look, I can't find {repoName} in {downloadPath}.")
+        print("Setup will not proceed if you do not download.")
+        downloadConfirmation = yon("Do you want to download? Yes or No: ")
+        if not downloadConfirmation: exit()
+    else:
+        proceed = yon("\nDo you want to continue?\nYes or No: ")
+        if not proceed: exit()
 
 script = f"""
 rm -rf $HOME/Downloads/{repoName}
