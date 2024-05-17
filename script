@@ -76,6 +76,7 @@ if not downloadConfirmation:
     else:
         proceed = yon("\nDo you want to continue?\nYes or No: ")
         if not proceed: exit()
+        system("clear")
 
 script = f"""
 rm -rf $HOME/Downloads/{repoName}
@@ -85,6 +86,7 @@ if downloadConfirmation:
     print("\nStarting download...")
     system(script)
     print("\nDownloaded!\n\n")
+    system("clear")
 
 system(f"sudo -E python3 {repoName}")
 
