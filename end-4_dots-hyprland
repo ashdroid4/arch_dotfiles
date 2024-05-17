@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, run, yon, chaoticAUR, checkUser, installPackage
+from __init__ import echo, run, yon, chaoticAUR, checkUser, checkPackage
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -47,6 +47,8 @@ hyprlandCustomPath = home.joinpath('.config', 'hypr', 'custom')
 defaultAsk = list()
 
 fonts = dict()
+
+post_installation = "https://end-4.github.io/dots-hyprland-wiki/en/i-i/01setup/#post-installation"
 
 green = "\033[0;32m"; red = "\033[31;49;1m"; blue = "\033[0;36m"; magenta = "\033[0;35m"; nocolor = "\\e[m"
 #--------------------------------------------------------------------------#
@@ -287,22 +289,23 @@ run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 # Optional Stuff
 
 ## Install Brave
-brave = installPackage("brave")
-
-if brave: 
+if checkPackage("brave"): 
     with open(f"{home}/.config/hypr/custom/keybinds.conf", "r+") as keybind:
         brave_keybind = keybind.read()
         if not "brave" in keybind:
             keybind.write(brave_keybind +"bind = Super+Alt, W, exec, brave")
 
-    echo(f"Brave is installed. The key for Brave is {green}Super + Alt + W{nocolor}\n")
+    echo(f"\nBrave is installed. The key for Brave is {green}Super + Alt + W{nocolor}\n")
 ##
 
 # Farewell Message
-post_installation = "https://end-4.github.io/dots-hyprland-wiki/en/i-i/01setup/#post-installation"
+Hyprland = checkPackage("hyprland", cache=False, install=False)
+
+if not Hyprland: status = f"{red}not installed :("
+else: status = "Installed!"
 
 farewell = f"""
-{green}Hyprland Installed!
+{green}Hyprland {status}
 {magenta}See the '{downloadPath}/Import Manually' folder and grab anything you need.
 {blue}If you are new to Hyprland, please read {post_installation} for hints on using Hyprland.
 
