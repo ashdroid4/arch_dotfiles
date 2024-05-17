@@ -143,9 +143,9 @@ def installPackage(package_name:str, cache=True, check=False) -> bool: # Serious
     except: 
         package = True
 
-    if not package: return False
-
     if check: return not package
+    
+    if not package: return False
     
     package = yon(f"\n\nDo you want to install {package_name}?\nYes or No: ")
     if package:
