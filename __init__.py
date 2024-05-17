@@ -154,6 +154,7 @@ def installPackage(package_name:str, cache=True, check=False) -> bool: # Serious
     else:
         if cache:
             print(f"Alright. Skipping {package_name}. Won't ask you again.")
+            if not cachePath: (cachePath.parent).mkdir(parents=True, exist_ok=True)
             with open(f"{home}/cache/{package_name}", "w") as package: package.write("NO")
 
 
