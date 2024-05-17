@@ -129,7 +129,7 @@ def chaoticAUR():
     system("pacman -Sy")
 
 # This functions checks if the package is installed. If not, it will ask to install it.
-def checkPackage(package_name:str, cache=True, install=True) -> bool: # Seriously, I don't need this function.
+def installPackage(package_name:str, cache=True, check=False) -> bool: # Seriously, I don't need this function.
     if cache:
         cachePath = Path(f"{home}/cache/{package_name}")
         if cachePath.exists(): 
@@ -145,7 +145,7 @@ def checkPackage(package_name:str, cache=True, install=True) -> bool: # Seriousl
 
     if not package: return False
 
-    if not install: return !package 
+    if check: return !package
     
     package = yon(f"\n\nDo you want to install {package_name}?\nYes or No: ")
     if package:

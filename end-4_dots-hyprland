@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, run, yon, chaoticAUR, checkUser, checkPackage
+from __init__ import echo, run, yon, chaoticAUR, checkUser, installPackage
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -289,7 +289,7 @@ run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 # Optional Stuff
 
 ## Install Brave
-if checkPackage("brave"): 
+if installPackage("brave"): 
     with open(f"{home}/.config/hypr/custom/keybinds.conf", "r+") as keybind:
         brave_keybind = keybind.read()
         if not "brave" in keybind:
@@ -298,8 +298,17 @@ if checkPackage("brave"):
     echo(f"\nBrave is installed. The key for Brave is {green}Super + Alt + W{nocolor}\n")
 ##
 
+## Install VSCode
+installPackage("code")
+##
+
+## Install Docker
+installPackage("docker")
+installPackage("docker-buildx") # Yes, I ran the function twice. What's with you?!
+##
+
 # Farewell Message
-Hyprland = checkPackage("hyprland", cache=False, install=False)
+Hyprland = installPackage("hyprland", cache=False, check=True)
 
 if not Hyprland: status = f"{red}not installed :("
 else: status = "Installed!"
