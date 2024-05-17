@@ -17,12 +17,12 @@ green = "\033[0;32m"; red = "\033[31;49;1m"; blue = "\033[0;36m"; nocolor = "\\e
 #-----------------------------------------------------------------------------#
 
 #-------------------------------Functions-------------------------------------#
-# This function will echo the print the messages in the terminal.
+# This function will echo the messages in the terminal.
 def echo(arg: str):
     system(f'echo -e "{arg}"')
 
 
-# This function will determine the input as True or False or YesForAll.
+# This function will determine the input as True or False or InstallForAll or SkipForAll.
 def yon(arg:str, simple=True, default=False) -> bool:
     response = input(arg)
 
@@ -128,11 +128,14 @@ def chaoticAUR():
 
     system("pacman -Sy")
 
-def installPackage(package_name:str, cache=True) -> bool:
+# This functions checks if the package is installed. If not, it will ask to install it.
+def installPackage(package_name:str, cache=True) -> bool: # Seriously, I don't need this function.
     if cache:
-        with open(f"{home}/cache/{package_name}"): 
-            package = package.read()
-            if "NO" in package: return False
+        cachePath = Path(f"{home}/cache/{package_name}")
+        if cachePath.exists(): 
+            with open(f"{home}/cache/{package_name}"): 
+                package = package.read()
+                if "NO" in package: return False
 
     try: 
         foo("pacman -Qi {}".format(package_name), check=True, shell=True, capture_output=True)
