@@ -133,7 +133,7 @@ def installPackage(package_name:str, cache=True, check=False) -> bool: # Serious
     if cache:
         cachePath = Path(f"{home}/cache/{package_name}")
         if cachePath.exists(): 
-            with open(f"{home}/cache/{package_name}"): 
+            with open(f"{home}/cache/{package_name}") as package: 
                 package = package.read()
                 if "NO" in package: return False
 
