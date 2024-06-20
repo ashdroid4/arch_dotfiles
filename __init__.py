@@ -128,7 +128,8 @@ def chaoticAUR():
 
     system("pacman -Sy")
 
-def 
+def Yay(): 
+    pass
 
 # This functions checks if the package is installed. If not, it will ask to install it.
 def installPackage(package_name:str, cache=True, check=False) -> bool: # Seriously, I don't need this function.
