@@ -310,16 +310,19 @@ installPackage("docker-buildx") # Yes, I ran the function twice. What's with you
 # Farewell Message
 Hyprland = installPackage("hyprland", cache=False, check=True)
 
-if not Hyprland: status = f"{red}not installed :("
-else: status = "Installed!"
+if not Hyprland: status = "is not installed :("
+else: status = "is installed :)"
 
 farewell = f"""
 {green}Hyprland {status}
-{magenta}See the '{downloadPath}/Import Manually' folder and grab anything you need.
+{magenta}See the '{downloadPath}/Extras' folder and grab anything you need.
 {blue}If you are new to Hyprland, please read {post_installation} for hints on using Hyprland.
 
 {magenta}If you are already running Hyprland,
 Press {green}Ctrl + /{magenta} for a list of keybinds.{nocolor}"""
+
+if "not" in status:
+    farewell = f"{red}Hyprland {status}{nocolor}"
 
 echo(farewell)
 
