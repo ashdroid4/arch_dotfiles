@@ -24,7 +24,7 @@ def echo(arg: str):
 
 # This function will determine the input as True or False or InstallForAll or SkipForAll.
 def yon(arg:str, assume=True, simple=True, default=False) -> bool:
-    response = input(arg)
+    response = (input(arg)).lower()
 
     if default and response == "": return True
 
@@ -147,7 +147,7 @@ def Yay(check=False) -> bool:
 
     echo(f"\n{green}Installing Yay...\n{nocolor}")
 
-    run("pacman -S base-devel")
+    run("pacman -S --needed base-devel")
 
     try:
         foo("pacman -Si yay", check=True, shell=True, capture_output=True)
@@ -229,24 +229,30 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
             "Here's a quick comparision:\n    "
             "1. Chaotic-AUR method is very fast. "
             "Yay will take a lot of time to compile so many packages.\n    "
-            "2. Which is reliable? Well, honestly I have never been fully successful with Yay\n"
+            f"2. Which is reliable? Well, honestly I have never been satisfied with Yay.\n{nocolor}"
         )
+    
+    if chaotic and yay:
+        echo(
+            f"{green}Found both Chaotic-AUR and Yay on your system. "
+            f"You have to choose one of them to install dependencies.{nocolor}"
+            )
 
-        variable = (input("So, which one would it be? Chaotic-AUR/Yay/Nothing: ")).lower()
+    variable = (input("So, which one would it be? Chaotic-AUR/Yay/Nothing: ")).lower()
 
-        if "chaotic" in variable:
-            chaoticAUR()
-            if check: return "Chaotic-AUR"
-            return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
+    if "chaotic" in variable:
+        chaoticAUR()
+        if check: return "Chaotic-AUR"
+        return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
         
-        if "yay" in variable:
-            Yay()
-            if check: return "Yay"
-            return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+    if "yay" in variable:
+        Yay()
+        if check: return "Yay"
+        return run(f"yay -S {'--needed' if needed else ''} {dependency}")
         
-        if "nothing" in variable:
-            echo(f"\n{red}Aborting...!{nocolor}\n")
-            exit()
+    if "nothing" in variable:
+        echo(f"\n{red}Aborting...!{nocolor}\n")
+        exit()
 
 
 # This functions checks if the package is installed. If not, it will ask to install it.
