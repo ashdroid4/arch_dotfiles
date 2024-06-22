@@ -139,22 +139,15 @@ cd .. && rm -rf yay
 
 # This function will install an AUR helper, Yay (https://github.com/Jguer/yay), on the system.
 def Yay(check=False, script="") -> bool:
+    modScript = "exit\n" + script + "\nsudo -sE"
+
+    if script: return run(modScript)
+
     yay = installPackage("yay", cache=False, check=True)
 
-    if yay: 
-        if script: pass
-        return True
+    if yay: return True
 
     if check: return False
-
-    if script:
-        return run(
-            """
-            exit
-            script
-            sudo -sE
-            """
-        )
 
     echo(f"\n{green}Installing Yay...\n{nocolor}")
 
