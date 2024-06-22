@@ -74,8 +74,9 @@ if not downloadConfirmation:
         downloadConfirmation = yon("Do you want to download? Yes or No: ")
         if not downloadConfirmation: exit()
     else:
-        proceed = yon("\nDo you want to continue?\nYes or No: ")
-        if not proceed: exit()
+        if not downloadPath.exists():
+            proceed = yon("\nDo you want to continue?\nYes or No: ")
+            if not proceed: exit()
         system("clear")
 
 script = f"""
