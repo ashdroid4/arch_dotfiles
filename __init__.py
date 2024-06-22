@@ -116,7 +116,7 @@ Include = /etc/pacman.d/chaotic-mirrorlist"""
 
 
 # This function will install ChaoticAUR (https://aur.chaotic.cx/) in pacman.
-def chaoticAUR(check=False):
+def chaoticAUR(check=False) -> bool:
     with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
 
     if "chaotic-aur" in pacman_conf: return True
@@ -138,15 +138,17 @@ cd .. && rm -rf yay
 """
 
 # This function will install an AUR helper, Yay (https://github.com/Jguer/yay), on the system.
-def Yay(check=False, script=""):
+def Yay(check=False, script="") -> bool:
     yay = installPackage("yay", cache=False, check=True)
 
-    if yay: return True
+    if yay: 
+        if script: pass
+        return True
 
     if check: return False
 
     if script:
-        run(
+        return run(
             """
             exit
             script
