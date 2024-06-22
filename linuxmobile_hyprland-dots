@@ -5,7 +5,7 @@ on your Arch Linux."""
 #---------------------------------IMPORTS-------------------------------------#
 from sys import exit
 from os import system
-from __init__ import echo, run, yon, home, chaoticAUR
+from __init__ import echo, run, yon, home, resolveDependency
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -41,15 +41,11 @@ Welcome = f"""
 This script will help you download and setup your Hyprland Window Manager.
 The script will continue in the following steps:
 {green}
-1. It will add a repo Chaotic-AUR if needed.
+1. It will add a repo Chaotic-AUR or Yay if needed.
 2. It will install all the dependencies.
 3. It will write the needed config for Hyprland.{nocolor}"""
 
 echo(Welcome)
-
-# Let's add a repo Chaotic-AUR.
-
-chaoticAUR()
 
 # Let's move on to installing dependencies.
 
@@ -59,7 +55,7 @@ echo(f"(you can edit the dependencies as you want in the arch_dotfiles/linuxmobi
 pacman_dependencies = [pacman_dependencies[value] for value in pacman_dependencies]
 pacman_dependencies = "".join(deps for deps in pacman_dependencies)
 
-run(f"pacman -S --needed {pacman_dependencies}")
+resolveDependency(pacman_dependencies, method="ask")
 # Let's configure the dotfiles.
 
 run(f"cd {home}/Downloads/linuxmobile_hyprland-dots && "

@@ -3,7 +3,7 @@ This script mostly follows the steps followed in https://github.com/end-4/dots-h
 The big difference is this is written in python and I have used Chaotic-AUR repo to install dependecies."""
 
 #---------------------------------IMPORTS-------------------------------------#
-from __init__ import echo, run, yon, chaoticAUR, checkUser, installPackage
+from __init__ import echo, run, yon, checkUser, installPackage, resolveDependency
 #-----------------------------------------------------------------------------#
 
 #-------------------------------CONSTANTS----------------------------------#
@@ -79,16 +79,12 @@ Welcome = f"""
 This script will help you download and setup your Hyprland Window Manager.
 The script will continue in the following steps:
 {green}
-1. It will add a repo Chaotic-AUR if needed.
+1. It will add a repo Chaotic-AUR or Yay if needed.
 2. It will install all the dependencies.
 3. It will try to install fonts Rubik, Gabarito, One-UI, Bibata, MicroTex one by one.
 4. It will write the needed config for Hyprland.{nocolor}"""
 
 echo(Welcome)
-
-# Let's add a repo Chaotic-AUR.
-
-chaoticAUR()
 
 # Let's move on to installing dependencies.
 
@@ -99,7 +95,7 @@ echo(f"\n\n{blue}Installing Dependencies...")
 echo(f"(you can edit the dependencies as you want in the {downloadPath}/end-4_dots-hyprland){nocolor}\n")
 
 
-run(f"pacman -S --needed {pacman_dependencies}")
+resolveDependency(pacman_dependencies, method="ask")
 
 echo(f"{green}\nThe depenedencies have been installed!{nocolor}\n")
 
@@ -210,10 +206,10 @@ echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
 # Let's copy the configs.
 
 echo(f"\n{magenta}I will try to import all the configs now. "+
-     f"This is very important so make sure to answer some question if required.{nocolor}\n")
+     f"This is very important so, make sure to answer some question if required.{nocolor}\n")
     
 
-## In case some folders does not exists
+## In case some folders does not exists.
 directories = [
     f"{home}/.config",
     f"{home}/.cache",

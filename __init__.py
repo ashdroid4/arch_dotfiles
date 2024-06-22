@@ -23,7 +23,7 @@ def echo(arg: str):
 
 
 # This function will determine the input as True or False or InstallForAll or SkipForAll.
-def yon(arg:str, simple=True, default=False) -> bool:
+def yon(arg:str, assume=True, simple=True, default=False) -> bool:
     response = input(arg)
 
     if default and response == "": return True
@@ -32,8 +32,11 @@ def yon(arg:str, simple=True, default=False) -> bool:
         if "y" in response: return True
         elif "n" in response: return False
         else:
-            print("Couldn't understand, so assuming No.")
-            return False
+            if assume:
+                print("Couldn't understand, so assuming No.")
+                return False
+            else: yon(arg, assume=assume, simple=simple, default=default)
+            # I don't want to make this recursive, but well, I won't use this much.
 
     if response == "iall": return "iall"
 
@@ -44,8 +47,11 @@ def yon(arg:str, simple=True, default=False) -> bool:
     elif response == "install" or response == "i": return True
 
     else:
-        print("Couldn't understand, so assuming No.")
-        return False
+        if assume:
+            print("Couldn't understand, so assuming No.")
+            return False
+        else: yon(arg, assume=assume, simple=simple, default=default)
+        # Read line 39
     
 # This function will verify if the user is correct.
 def checkUser(warning=True, boolean=False) -> str:
@@ -76,7 +82,7 @@ def checkUser(warning=True, boolean=False) -> str:
 
 
 # Just modifying the subprocess.run() to give desired outputs.
-def run(arg:str, possible_warning=""):
+def run(arg:str, possible_warning=""): #NOTES: MAKE AN REPEAT OPTION
     try: 
         print(f"\n\nExecuting [{arg}]\n")
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
@@ -109,27 +115,139 @@ chaoticRepo = """\n
 Include = /etc/pacman.d/chaotic-mirrorlist"""
 
 
-# This function will install ChaoticAUR (https://aur.chaotic.cx/) in pacman 
-def chaoticAUR():
+# This function will install ChaoticAUR (https://aur.chaotic.cx/) in pacman.
+def chaoticAUR(check=False) -> bool:
     with open("/etc/pacman.conf", "r") as c: pacman_conf = c.read()
 
-    if "chaotic-aur" in pacman_conf: return
+    if "chaotic-aur" in pacman_conf: return True
 
-    echo(f"\n\n{blue}Now, I have to install all the dependencies. To do this, I have to add another repo called Chaotic-Aur.\n"
-         f"I am very lazy so you have to say yes or the installation will abort.{nocolor}")
+    if check: return False
 
-    ChaoticAUR = yon("\nDo you want to add Chaotic-Aur? "
-                     "Yes or No: ")
-
-    if not ChaoticAUR: exit()
+    echo(f"{blue}\nInstalling Chaotic-AUR on your system.\n{nocolor}")
 
     run(chaoticScript)
     with open("/etc/pacman.conf", "w") as c: c.write(pacman_conf + chaoticRepo)
 
     system("pacman -Sy")
 
-def Yay(): 
-    pass
+
+yayScript = f"""
+git clone https://aur.archlinux.org/yay.git {dotPath}/yay
+cd yay && makepkg -sirc
+cd .. && rm -rf yay
+"""
+
+# This function will install an AUR helper, Yay (https://github.com/Jguer/yay), on the system.
+def Yay(check=False) -> bool:
+    yay = installPackage(cache=False, check=True)
+
+    if yay: return True
+
+    if check: return False
+
+    echo(f"\n{green}Installing Yay...\n{nocolor}")
+
+    run("pacman -S base-devel")
+
+    try:
+        foo("pacman -Si yay", check=True, shell=True, capture_output=True)
+        run("pacman -S yay")
+    except: 
+        run(yayScript)
+
+    run("yay -Y --gendb")
+
+# This is a helper to install dependencies.
+def resolveDependency(dependency:str, check=False, method="pacman", needed=True): #Note: make an cache option
+    if method == "pacman":
+        return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
+
+    elif method == "yay":
+        return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+
+    chaotic = chaoticAUR(check=True)
+    yay = Yay(check=True)
+
+    if chaotic and not yay:
+        echo(f"\n{green}Found Chaotic-AUR on your system.")
+
+        chaotic = yon(
+            "Do you want to use Chaotic-AUR to install dependencies?(yes/no): ",
+            assume=False
+        )
+
+        echo(f"{nocolor}")
+
+        if chaotic: 
+            if check: return "Chaotic-AUR"
+            return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
+
+        else:
+            echo(f"\n{green}Do you want to install Yay then?")
+            yay = yon("Yes or No: ")
+            echo(f"{nocolor}")
+
+            if yay: 
+                Yay() 
+                if check: return "Yay"
+                return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+
+            else:
+                echo(f"\n{red}This script cannot proceed without Yay and Chaotic-AUR. So, aborting...{nocolor}")
+                exit()
+    
+    if yay and not chaotic:
+        echo(f"\n{green}Found Yay on your system.")
+
+        yay = yon(
+            "Do you want to use Yay to install dependencies?(yes/no): ",
+            assume=False
+        )
+
+        echo(f"{nocolor}")
+
+        if yay: return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+
+        else:
+            echo(f"\n{green}Do you want to install Chaotic-AUR then?")
+            chaotic = yon("Yes or No: ")
+            echo(f"{nocolor}")
+
+            if chaotic:
+                chaoticAUR()
+                return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
+
+            else:
+                echo(f"\n{red}This script cannot proceed without Yay and Chaotic-AUR. So, aborting...{nocolor}")
+                exit()
+    
+    if not chaotic and not yay:
+        echo(
+            f"\n{green}Look, I need to install some AUR packages.\n"
+            "So, to install these packages I either need to add "
+            "Chaotic-AUR repo in pacman mirrorlist or install yay on your system.\n"
+            "Here's a quick comparision:\n    "
+            "1. Chaotic-AUR method is very fast. "
+            "Yay will take a lot of time to compile so many packages.\n    "
+            "2. Which is reliable? Well, honestly I have never been fully successful with Yay\n"
+        )
+
+        variable = (input("So, which one would it be? Chaotic-AUR/Yay/Nothing: ")).lower()
+
+        if "chaotic" in variable:
+            chaoticAUR()
+            if check: return "Chaotic-AUR"
+            return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
+        
+        if "yay" in variable:
+            Yay()
+            if check: return "Yay"
+            return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+        
+        if "nothing" in variable:
+            echo(f"\n{red}Aborting...!{nocolor}\n")
+            exit()
+
 
 # This functions checks if the package is installed. If not, it will ask to install it.
 def installPackage(package_name:str, cache=True, check=False) -> bool: # Seriously, I don't need this function.
