@@ -167,7 +167,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
         return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
 
     elif method == "yay":
-        return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
+        return Yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
 
     chaotic = chaoticAUR(check=True)
     yay = Yay(check=True)
@@ -194,7 +194,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
             if yay: 
                 Yay() 
                 if check: return "Yay"
-                return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
+                return Yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
 
             else:
                 echo(f"\n{red}This script cannot proceed without Yay and Chaotic-AUR. So, aborting...{nocolor}")
@@ -210,7 +210,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
 
         echo(f"{nocolor}")
 
-        if yay: return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
+        if yay: return Yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
 
         else:
             echo(f"\n{green}Do you want to install Chaotic-AUR then?")
@@ -252,7 +252,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
     if "yay" in variable:
         Yay()
         if check: return "Yay"
-        return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
+        return Yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
         
     if "nothing" in variable:
         echo(f"\n{red}Aborting...!{nocolor}\n")
