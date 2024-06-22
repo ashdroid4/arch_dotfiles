@@ -139,7 +139,7 @@ cd .. && rm -rf yay
 
 # This function will install an AUR helper, Yay (https://github.com/Jguer/yay), on the system.
 def Yay(check=False) -> bool:
-    yay = installPackage(cache=False, check=True)
+    yay = installPackage("yay", cache=False, check=True)
 
     if yay: return True
 
