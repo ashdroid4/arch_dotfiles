@@ -138,22 +138,20 @@ cd .. && rm -rf yay
 """
 
 # This function will install an AUR helper, Yay (https://github.com/Jguer/yay), on the system.
-def Yay(check=False, install=False, dependency="") -> bool:
+def Yay(check=False, script="") -> bool:
     yay = installPackage("yay", cache=False, check=True)
 
     if yay: return True
 
     if check: return False
 
-    if install:
+    if script:
         run(
             """
             exit
-            yay -S --needed {}
+            script
             sudo -sE
-            """.format(
-                dependency
-            )
+            """
         )
 
     echo(f"\n{green}Installing Yay...\n{nocolor}")
@@ -174,7 +172,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
         return run(f"pacman -S {'--needed' if needed else ''} {dependency}")
 
     elif method == "yay":
-        return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+        return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
 
     chaotic = chaoticAUR(check=True)
     yay = Yay(check=True)
@@ -201,7 +199,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
             if yay: 
                 Yay() 
                 if check: return "Yay"
-                return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+                return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
 
             else:
                 echo(f"\n{red}This script cannot proceed without Yay and Chaotic-AUR. So, aborting...{nocolor}")
@@ -217,7 +215,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
 
         echo(f"{nocolor}")
 
-        if yay: return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+        if yay: return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
 
         else:
             echo(f"\n{green}Do you want to install Chaotic-AUR then?")
@@ -259,7 +257,7 @@ def resolveDependency(dependency:str, check=False, method="pacman", needed=True)
     if "yay" in variable:
         Yay()
         if check: return "Yay"
-        return run(f"yay -S {'--needed' if needed else ''} {dependency}")
+        return yay(script=f"yay -S {'--needed' if needed else ''} {dependency}")
         
     if "nothing" in variable:
         echo(f"\n{red}Aborting...!{nocolor}\n")
