@@ -25,7 +25,7 @@ pacman_dependencies = { # P.S: You can edit these dependencies according to your
 
 "widgets": " python-pywayland python-psutil hypridle-git hyprlock-git wlogout wl-clipboard hyprpicker-git anyrun-git plasma-browser-integration",
 
-"font": " adw-gtk3-git qt5ct qt5-wayland gradience-git fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
+"font": " adw-gtk3-git qt5ct qt5-wayland fontconfig ttf-readex-pro ttf-jetbrains-mono-nerd bibata-cursor-theme " 
 "ttf-material-symbols-variable-git ttf-space-mono-nerd fish foot starship python-materialyoucolor-git",
 
 "recorder": " swappy wf-recorder grim tesseract tesseract-data-eng slurp"
@@ -102,7 +102,7 @@ echo(f"{green}\nThe depenedencies have been installed!{nocolor}\n")
 # Let's add user to video and input groups.
 
 temp = "you could try `sudo usermod -aG video, input 'YourUsernameHere'`"
-run(f'usermod -aG video,input {username}', possible_warning=temp); del temp
+run(f'usermod -aG video, i2c, input {username}', possible_warning=temp); del temp
 
 # Let's install fonts.
 
@@ -207,7 +207,8 @@ echo(f"\n{green}The process of installing fonts is hereby complete.{nocolor}\n")
 
 echo(f"\n{magenta}I will try to import all the configs now. "+
      f"This is very important so, make sure to answer some question if required.{nocolor}\n")
-    
+
+
 
 ## In case some folders does not exists.
 directories = [
@@ -217,7 +218,7 @@ directories = [
     f"{home}/.local/share"
 ]
 for directory in directories:
-    run(f"mkdir -p {directory}")
+    run(f"mkdir -p {directory}", no_sudo=True)
 
 excludedPaths = ['hypr', 'ags', 'fish']
 
@@ -283,6 +284,9 @@ run(f"rsync -av {downloadPath}/.local/bin/ {home}/.local/bin/")
 run("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
 
 # Optional Stuff
+
+## Install Firefox
+installPackage("firefox")
 
 ## Install Brave
 if installPackage("brave"): 
