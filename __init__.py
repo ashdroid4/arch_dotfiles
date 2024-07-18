@@ -82,7 +82,9 @@ def checkUser(warning=True, boolean=False) -> str:
 
 
 # Just modifying the subprocess.run() to give desired outputs.
-def run(arg:str, possible_warning=""): #NOTES: MAKE AN REPEAT OPTION
+def run(arg:str, no_sudo possible_warning=""): #NOTES: MAKE A REPEAT OPTION
+    if no_sudo:
+        arg = f"sudo -u {username} {arg}"
     try: 
         print(f"\n\nExecuting [{arg}]\n")
         foo(arg, shell=True, check=True) # This foo is subprocess.run()
@@ -139,9 +141,7 @@ cd .. && rm -rf yay
 
 # This function will install an AUR helper, Yay (https://github.com/Jguer/yay), on the system.
 def Yay(check=False, script="") -> bool:
-    modScript = f"sudo -u {username} " + script
-
-    if script: return run(modScript)
+    if script: return run(modScript, no_sudo)
 
     yay = installPackage("yay", cache=False, check=True)
 
