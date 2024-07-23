@@ -9,7 +9,7 @@ from __init__ import echo, run, yon, checkUser, installPackage, resolveDependenc
 #-------------------------------CONSTANTS----------------------------------#
 pacman_dependencies = { # P.S: You can edit these dependencies according to your wish, but everything might not work.
 
-"basic": " coreutils cliphist cmake curl fuzzel rsync wget ripgrep gojq npm meson typescript gjs pkg-config dart-sass axel make",
+"basic": " coreutils cliphist cmake curl fuzzel rsync wget ripgrep jq gojq npm meson typescript gjs pkg-config dart-sass axel make",
 
 "microtex": " tinyxml2 gtkmm3 gtksourceviewmm cairomm gcc",
 
