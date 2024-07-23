@@ -82,7 +82,7 @@ def checkUser(warning=True, boolean=False) -> str:
 
 
 # Just modifying the subprocess.run() to give desired outputs.
-def run(arg:str, no_sudo possible_warning=""): #NOTES: MAKE A REPEAT OPTION
+def run(arg:str, no_sudo:bool=False, possible_warning=""): #NOTES: MAKE A REPEAT OPTION
     if no_sudo:
         arg = f"sudo -u {username} {arg}"
     try: 
